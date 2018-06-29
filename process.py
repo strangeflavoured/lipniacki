@@ -1,8 +1,8 @@
 import numpy as np
 
-def fuse(sol,sol2):
-	pt=np.hstack((sol.t,sol2.t+sol.t[-1]))
-	py=np.hstack((sol.y,sol2.y))
+def fuse(t1,y1,t2,y2):
+	pt=np.hstack((t1,t2+t1[-1]))
+	py=np.hstack((y1,y2))
 
 	SOL=np.vstack((pt,py))
 	return SOL

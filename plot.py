@@ -11,15 +11,16 @@ def save(fig,bool):
 			s=save+'small'
 			fig.savefig(s, dpi=150)
 
-def figa(pt,px,colour,stl,start,lim,ttl,xl,yl,bool):
+def figa(pt,px,colour,lab,stl,start,lim,ttl,xl,yl,bool):
 	fig, ax=plt.subplots(nrows=1,ncols=1)
 	plt.style.use(stl)
-
-	ax.plot(pt-start,px,c=colour)
+	for i in range(0,len(px)):
+		ax.plot(pt-start,px[i],c=colour[i],label=lab[i])
 	ax.set_xlim(lim)
 	ax.set_title(ttl)
 	ax.set_xlabel(xl)
 	ax.set_ylabel(yl)
+	ax.legend()
 
 	ax.grid(which='major', c='gray', linewidth=0.5, linestyle='--')
 	ax.grid(which='minor', linewidth=0.25, linestyle=':')

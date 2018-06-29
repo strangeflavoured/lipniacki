@@ -4,10 +4,10 @@ from scipy.integrate import solve_ivp as solve
 from parameters import para
 from model import model
 
-def init(AB,AA,kv,nftot):
+def init(AA,AB,AC,kv,nftot):
 
 	##MODEL#############
-	par=para(AB,AA,kv)
+	par=para(AA,AB,AC,kv)
 	f=model(par,0)
 
 	##INITIAL VALUES####
@@ -21,10 +21,10 @@ def init(AB,AA,kv,nftot):
 
 	return sol
 
-def sim(AB,AA,kv,nftot,TR,y0,time):
+def sim(AA,AB,AC,kv,TR,y0,time):
 
 	##MODEL#############
-	par=para(AB,AA,kv)
+	par=para(AA,AB,AC,kv)
 	f=model(par,TR)
 
 	###INITIATION#######

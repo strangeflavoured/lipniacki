@@ -9,15 +9,16 @@
 import numpy as np
 
 ############### Parametrisation for system of ODE's ####################
-def para(AB,AA,kv): 
+def para(AA,AB,AC,kv): 
 	#XXXXXXXXXXXXXXXXX A20 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                             
 	c1=AB*0.00005/100     #AB*0.00005/100  inducible A20 mRNA synthesis, Assumption 
 	c2=AB*0.000000        #AB*0.0  constitutive A20 mRNA synthesis, Assumption
 	c3=0.0004             #0.0004  A20 mRNA degradation rate, Assumption 
 	c4=0.005*100          #0.005*100  A20 translation rate, Assumption
 	c5=0.0003             #0.0003  A20 degradation rate, IkBa *5
-	 
-	k1=0.0025             #0.0025 activation caused by TNF, FIT
+	
+	################# IKK ####################################################
+	k1=AC*0.0025             #0.0025 activation caused by TNF, FIT
 	k2=0.1                #0.1  inactivation caused by A20, FIT
 	k3=0.0015             #0.0015  spontanouous inactivation,  FIT
 	kprod=0.000025        #0.000025  IKKn production rate
