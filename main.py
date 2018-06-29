@@ -23,10 +23,24 @@ f=model(par,TR)
 y0=np.zeros(14)
 y0[12]=nftot
 
-###SIMULATION#######
-tspan=[0,60*60*24]
+###INITIATION#######
+tspan=[0,60*60*101]
 
 sol=solve(f,tspan,y0,method='LSODA')
 
-plt.plot(sol.t,sol.y[6])
+###SIMULATION#######
+TR=1
+f=model(par,TR)
+
+y0=sol.y[:,-1]
+tspan=[0,60*60*24]
+
+sol2=solve(f,tspan,y0,method='LSODA')
+
+plt.style.use('seaborn-dark')
+plt.plot(sol.t/3600-100,sol.y[6],'r')
+plt.plot(sol2.t/3600+1,sol2.y[6],'r')
+plt.xlim((0,6))
+
+plt.tight_layout()
 plt.show()
