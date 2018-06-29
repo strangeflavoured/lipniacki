@@ -1,5 +1,4 @@
-#   #############################################################
-#    #          04/30/03                                      #
+#   ##############################################################
 #    #         Function includes system of ODEs describing       #
 #    #         NF-kB regulatory pathway. System                  #
 #    #         includes A20 gene products action as a            #
@@ -15,11 +14,11 @@
 #    #         y[6]   NFkBn                                      #
 #    #         y[7]   A20                                        #
 #    #         y[8]   A20t                                       #
-#    #         y[9]  IkBa                                       #
+#    #         y[9]  IkBa                                        #
 #    #         y[10]  IkBan                                      #
 #    #         y[11]  IkBat                                      #      
 #    #         y[12]  (IkBa|NFkB) cytoplasmic                    #  
-#    #         y[13] (IkBan|NFkBn) nuclear                      #        
+#    #         y[13] (IkBan|NFkBn) nuclear                       #        
 #    #                                                           #
 #    #############################################################
 import numpy as np
