@@ -9,7 +9,7 @@
 import numpy as np
 
 ############### Parametrisation for system of ODE's ####################
-def para(AB,AA,nftot,kv): 
+def para(AB,AA,kv): 
 	#XXXXXXXXXXXXXXXXX A20 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX                                             
 	c1=AB*0.00005/100     #AB*0.00005/100  inducible A20 mRNA synthesis, Assumption 
 	c2=AB*0.000000        #AB*0.0  constitutive A20 mRNA synthesis, Assumption
