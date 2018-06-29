@@ -19,21 +19,11 @@ sol=sim.init(AA,AB,AC,kv,nftot)
 ###SIMULATION#######
 TR=1
 y0=sol.y[:,-1]
-sol2=sim.sim(AA,AB,AC,kv,TR,y0,60*60*2)
-
-###SIMULATION#######
-y0=sol2.y[:,-1]
-y0[1]=0
-print(y0)
-sol3=sim.sim(AA,AB,0,kv,TR,y0,60*60*5)
+sol2=sim.sim(AA,AB,AC,kv,TR,y0,60*60*24)
 
 SOL=prc.fuse(sol.t,sol.y,sol2.t,sol2.y)
-pt=SOL[0]
+pt=prc.hour(SOL1[0])
 py=SOL[1:SOL.shape[0]]
-
-SOL2=prc.fuse(pt,py,sol3.t,sol3.y)
-pt=prc.hour(SOL2[0])
-py=SOL2[1:SOL2.shape[0]]
 
 px=[py[6],py[1]]
 colour=['r','g']
