@@ -9,10 +9,10 @@ import results as res
 ##CONDITIONS########
 AA=1                # AA=1 wt cell, AA=0 IkBa deficient cell
 AB=1                # AB=1 wt cell, AB=0  A20 deficient cell
-AC=1				        # AC=1 wt cell, AC=0 IKKa KO
+AC=1				# AC=1 wt cell, AC=0 IKKa KO
 kv=5              	#ratio of cytoplasmic to nuclear volume kv=5
-TR=0				        #TNF signal
-nftot=0.06		    	#total nfkb
+TR=0				#TNF signal
+nftot=0.06		   	#total nfkb
 
 ###INITIATION#######
 sol=sim.init(AA,AB,AC,kv,nftot)
