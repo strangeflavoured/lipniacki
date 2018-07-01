@@ -4,10 +4,12 @@ import numpy as np
 
 def save(fig):
 	save=input('save as: ')
-	if save==True:
+	if save:
 		fig.savefig(save, dpi=500)#fullscreen
 		s=save+'small'
 		fig.savefig(s, dpi=150)
+	else:
+		print('{} not saved'.format(fig))
 
 def figa(pt,px,colour,lab,start,lim,**kwargs):
 	ttl=kwargs.get('title')
