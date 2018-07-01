@@ -2,10 +2,9 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 
-def save(fig,path):
-	save=str(input('save as: '))
-	save=save
-	if save not in ('0', 'NO', 'no', 'No', 'nein', 'NEIN', 'Nein','n', 'N', '', ' ','q', 'Q','quit', 'Quit'):
+def save(fig):
+	save=input('save as: ')
+	if save==True:
 		fig.savefig(save, dpi=500)#fullscreen
 		s=save+'small'
 		fig.savefig(s, dpi=150)
