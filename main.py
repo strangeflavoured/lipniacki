@@ -32,7 +32,7 @@ px=[py[6],py[1]]
 colour=['r','g']
 label=['NF$\kappa$B','IKK']
 xlim=(-1,7)
-p.figa(pt,px,colour,label,101,xlim,title='time development',xlabel='h',ylabel='$\mu$M')#,path='../',DPI=500)
+p.figa(pt,px,colour,label,101,xlim=xlim,title='time development',xlabel='h',ylabel='$\mu$M')#,path='../',DPI=500)
 
 ###SAVING###########
 res.dump('../results.npz',pt=pt,py=py)
@@ -41,3 +41,7 @@ res.dump('../results.npz',pt=pt,py=py)
 #print(restore.files)
 #pt=restore['pt']
 #py=restore['py']
+
+###VARY kv##########
+#itr=np.linspace(1,100,100)
+#SUM=sim.varkv(AA,AB,AC,kv,nftot,time=60*60*24,itr=itr)

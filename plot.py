@@ -11,12 +11,13 @@ def save(fig):
 	else:
 		print('{} not saved'.format(fig))
 
-def figa(pt,px,colour,lab,start,lim,**kwargs):
+def figa(pt,px,colour,lab,start,**kwargs):
 	ttl=kwargs.get('title')
 	stl=kwargs.get('style','seaborn-dark')
 	xl=kwargs.get('xlabel')
 	yl=kwargs.get('ylabel')
 	label=kwargs.get('label')
+	xlim=kwargs.get('xlim')
 
 	plt.style.use(stl)
 
@@ -24,15 +25,16 @@ def figa(pt,px,colour,lab,start,lim,**kwargs):
 	for i in range(0,len(px)):
 		ax.plot(pt-start,px[i],c=colour[i],label=lab[i])
 
-	ax.set_xlim(lim)
+	if xlim:
+		ax.set_xlim(xlim)
 
-	if ttl==True:
+	if ttl:
 		ax.set_title(ttl)
-	if xl==True:
+	if xl:
 		ax.set_xlabel(xl)
-	if yl==True:
+	if yl:
 		ax.set_ylabel(yl)
-	if label!=False:
+	if label:
 		ax.legend()
 
 	ax.grid(c='gray', linewidth=0.5, linestyle='--')
