@@ -11,7 +11,7 @@ def save(fig,path):
 		fig.savefig(s, dpi=150)
 
 def figa(pt,px,colour,lab,start,lim,**kwargs):
-	ttl=kwargs.get('title',None)
+	ttl=kwargs.get('title')
 	stl=kwargs.get('style','seaborn-dark')
 	xl=kwargs.get('xlabel')
 	yl=kwargs.get('ylabel')
