@@ -59,7 +59,7 @@ def varkv(AA,AB,AC,nftot,time,itr,pvar):
 		
 		py=SOL[1:SOL.shape[0]]		
 		ax.plot(pt-100,py[pvar],label='kv={}'.format(np.around(kv,1)),c=colour[i])
-	ax.set_xlim(0,time/3600+1)
+	ax.set_xlim(0,pt[-1]-100)
 	ax.set_xlabel('t/h')
 	ax.set_ylabel('NF$\kappa$B/$\mu$M')
 	fig.suptitle('Variation of nuclear Volume')

@@ -20,8 +20,8 @@ sol=sim.init(AA,AB,AC,kv,nftot)
 
 ###SIMULATION#######
 TR=1
-y0=sol.y[:,-1]
-sol2=sim.sim(AA,AB,AC,kv,TR,y0,60*60*24)
+y0=sol.y[:,-kv]
+sol2=sim.sim(AA,AB,AC,1,TR,y0,60*60*24)
 
 ###PROCESSING#######
 SOL=prc.fuse(sol.t,sol.y,sol2.t,sol2.y)
@@ -29,11 +29,11 @@ pt=prc.hour(SOL[0])
 py=SOL[1:SOL.shape[0]]
 
 ###PLOTTING#########
-px=[py[6],py[1]]
-colour=['r','g']
-label=['NF$\kappa$B','IKK']
-xlim=(-1,7)
-p.figa(pt,px,colour,label,101,xlim=xlim,title='time development',xlabel='h',ylabel='$\mu$M')#,path='../',DPI=500)
+#px=[py[6],py[1]]
+#colour=['r','g']
+#label=['NF$\kappa$B','IKK']
+#xlim=(-1,24)
+#p.figa(pt,px,colour,label,101,xlim=xlim,title='time development',xlabel='h',ylabel='$\mu$M',label=True)#,path='../',DPI=500)
 
 #px=[py[6]]
 #py=[py[9]]
@@ -51,5 +51,5 @@ res.dump('../results.npz',pt=pt,py=py)
 #py=restore['py']
 
 ###VARY kv##########
-#itr=np.logspace(0,2,10)
-#SUM=sim.varkv(AA,AB,AC,nftot,time=60*60*6,itr=itr,pvar=6)
+itr=np.linspace(1,10,20)
+SUM=sim.varkv(AA,AB,AC,nftot,time=60*60*24,itr=itr,pvar=6)
