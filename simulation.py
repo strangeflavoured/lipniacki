@@ -37,12 +37,12 @@ def sim(AA,AB,AC,kv,TR,y0,time):
 
 	return sol2
 
-def varkv(AA,AB,AC,kv,nftot,time,itr):
+def varkv(AA,AB,AC,nftot,time,itr,pvar):
 	SUM=[]
-	#colour=cm.autumn(np.linspace(0,1,len(itr)))
+	colour=cm.autumn_r(np.linspace(0,1,len(itr)))
+	plt.style.use('seaborn-dark')
 	fig,ax=plt.subplots(nrows=1,ncols=1)
-	plt.sytle.use('seaborn-dark')
-	for kv in itr:
+	for i,kv in enumerate(itr):
 		###INITIATION#######
 		TR=0
 		sol=init(AA,AB,AC,kv,nftot)
@@ -56,8 +56,15 @@ def varkv(AA,AB,AC,kv,nftot,time,itr):
 		SOL=prc.fuse(sol.t,sol.y,sol2.t,sol2.y)
 		SUM.append(SOL)
 		pt=prc.hour(SOL[0])
+		
 		py=SOL[1:SOL.shape[0]]		
-		ax.plot(pt-101,py[6])#,colour[kv])
+		ax.plot(pt-100,py[pvar],label='kv={}'.format(np.around(kv,1)),c=colour[i])
+	ax.set_xlim(0,time/3600+1)
+	ax.set_xlabel('t/h')
+	ax.set_ylabel('NF$\kappa$B/$\mu$M')
+	fig.suptitle('Variation of nuclear Volume')
+	ax.legend()
+	ax.grid()
 	fig.tight_layout()
 	plt.show()
 	return SUM

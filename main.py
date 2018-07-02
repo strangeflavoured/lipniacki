@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import matplotlib.cm as cm
 import numpy as np 
 
 import simulation as sim
@@ -34,6 +35,13 @@ label=['NF$\kappa$B','IKK']
 xlim=(-1,7)
 p.figa(pt,px,colour,label,101,xlim=xlim,title='time development',xlabel='h',ylabel='$\mu$M')#,path='../',DPI=500)
 
+#px=[py[6]]
+#py=[py[9]]
+#colour=['r']
+#colourmap=[cm.autumn]
+#lab=['wt']
+#p.phaseplt(px,py,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B')
+
 ###SAVING###########
 res.dump('../results.npz',pt=pt,py=py)
 
@@ -43,5 +51,5 @@ res.dump('../results.npz',pt=pt,py=py)
 #py=restore['py']
 
 ###VARY kv##########
-#itr=np.linspace(1,100,100)
-#SUM=sim.varkv(AA,AB,AC,kv,nftot,time=60*60*24,itr=itr)
+#itr=np.logspace(0,2,10)
+#SUM=sim.varkv(AA,AB,AC,nftot,time=60*60*6,itr=itr,pvar=6)
