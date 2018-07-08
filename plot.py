@@ -18,12 +18,17 @@ def figa(pt,px,colour,lab,start,**kwargs):
 	yl=kwargs.get('ylabel')
 	label=kwargs.get('label')
 	xlim=kwargs.get('xlim')
+	lstyle=kwargs.get('linestyle')
+	if not lstyle:
+		lstyle=[]
+		for i in range(0,len(px)):
+			lstyle.append['-']
 
 	plt.style.use(stl)
 
 	fig, ax=plt.subplots(nrows=1,ncols=1)	
 	for i in range(0,len(px)):
-		ax.plot(pt-start,px[i],c=colour[i],label=lab[i])
+		ax.plot(pt[i]-start,px[i],c=colour[i],label=lab[i],linestyle=lstyle[i])
 
 	if xlim:
 		ax.set_xlim(xlim)
