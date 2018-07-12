@@ -19,6 +19,7 @@ def figa(pt,px,colour,lab,start,**kwargs):
 	label=kwargs.get('label')
 	xlim=kwargs.get('xlim')
 	lstyle=kwargs.get('linestyle')
+	note=kwargs.get('annotate')
 	if not lstyle:
 		lstyle=[]
 		for i in range(0,len(px)):
@@ -41,6 +42,8 @@ def figa(pt,px,colour,lab,start,**kwargs):
 		ax.set_ylabel(yl)
 	if label:
 		ax.legend()
+	if note:
+		ax.annotate(note)
 
 	ax.grid(c='gray', linewidth=0.5, linestyle='--')
 
