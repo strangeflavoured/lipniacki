@@ -20,33 +20,23 @@ nftot=0.06		   	#total nfkb
 sol=sim.init(AA,AB,AC,kv,nftot)
 
 ###SIMULATION#######
-y0=sol.y[:,-1]
-sol1=sim.sim(AA,AB,AC,kv,TR,y0,60*60*24)
-
 TR=1
 y0=sol.y[:,-1]
-sol2=sim.sim(AA,AB,AC,kv,TR,y0,60*60*24)
+sol1=sim.sim(AA,AB,AC,kv,TR,y0,60*60*10000)
 
 ###PROCESSING#######
-SOL1=prc.fuse(sol.t,sol.y,sol1.t,sol1.y)
-pt1=prc.hour(SOL1[0])
-py1=SOL1[1:SOL1.shape[0]]
-
-###PROCESSING#######
-SOL2=prc.fuse(sol.t,sol.y,sol2.t,sol2.y)
-pt2=prc.hour(SOL2[0])
-py2=SOL2[1:SOL2.shape[0]]
+SOL=prc.fuse(sol.t,sol.y,sol1.t,sol1.y)
+pt=prc.hour(SOL[0])
+py=SOL[1:SOL.shape[0]]
 
 ###PLOTTING#########
-px=[py1[6],py2[6]]
-pt=[pt1,pt2]
-colour=[c.deepskyblue,'navy']
-label=['TNF=0','TNF=1']
-lstyle=['--','-']
-xlim=(-1,6)
-p.figa(pt,px,colour,label,101,xlim=xlim,title='NF$\kappa$B',annotate=('$TNF=1$', xy=(1/7, 1), xytext=(1/7, 1.1),ha='center',
-            arrowprops=dict(facecolor='black', shrink=.5),
-            ),linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../resultsNF.png',DPI=500)
+#px=[py1[6],py2[6]]
+#pt=[pt1,pt2]
+#colour=[c.deepskyblue,'navy']
+#label=['TNF=0','TNF=1']
+#lstyle=['--','-']
+#xlim=(-1,6)
+#p.figa(pt,px,colour,label,101,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../resultsNF.png',DPI=500)
 
 #px=[py[6]]
 #py=[py[9]]
@@ -57,6 +47,7 @@ p.figa(pt,px,colour,label,101,xlim=xlim,title='NF$\kappa$B',annotate=('$TNF=1$',
 
 ###SAVING###########
 res.dump('../results.npz',pt=pt,py=py)
+res.save('../steadystate.txt', tend=pt[-1], yend=py[:,-1])
 
 #restore=res.load('../results.npz')
 #print(restore.files)
