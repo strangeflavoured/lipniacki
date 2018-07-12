@@ -2,6 +2,12 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 
+def hline(val,t):
+	x=[]
+	for i,j in enumerate(t):
+		x.append(val)
+	return x
+
 def save(fig):
 	save=input('save as: ')
 	if save:

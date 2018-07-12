@@ -7,6 +7,7 @@ import process as prc
 import plot as p
 import results as res
 import colours as c
+import model as mod
 
 ##CONDITIONS########
 AA=1                # AA=1 wt cell, AA=0 IkBa deficient cell
@@ -22,7 +23,7 @@ sol=sim.init(AA,AB,AC,kv,nftot)
 ###SIMULATION#######
 TR=1
 y0=sol.y[:,-1]
-sol1=sim.sim(AA,AB,AC,kv,TR,y0,60*60*10000)
+sol1=sim.sim(AA,AB,AC,kv,TR,y0,60*60*24)
 
 ###PROCESSING#######
 SOL=prc.fuse(sol.t,sol.y,sol1.t,sol1.y)
@@ -30,13 +31,13 @@ pt=prc.hour(SOL[0])
 py=SOL[1:SOL.shape[0]]
 
 ###PLOTTING#########
-#px=[py1[6],py2[6]]
-#pt=[pt1,pt2]
-#colour=[c.deepskyblue,'navy']
-#label=['TNF=0','TNF=1']
-#lstyle=['--','-']
-#xlim=(-1,6)
-#p.figa(pt,px,colour,label,101,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../resultsNF.png',DPI=500)
+px=[py[6],p.hline(mod.limit1()[6],pt)]
+pt=[pt,pt]
+colour=['navy','gray']
+label=['wt','threshold']
+lstyle=['-','--']
+xlim=(-1,6)
+p.figa(pt,px,colour,label,101,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../resultsNF.png',DPI=500)
 
 #px=[py[6]]
 #py=[py[9]]
@@ -46,8 +47,8 @@ py=SOL[1:SOL.shape[0]]
 #p.phaseplt(px,py,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B')
 
 ###SAVING###########
-res.dump('../results.npz',pt=pt,py=py)
-res.save('../steadystate.txt', tend=pt[-1], yend=py[:,-1])
+#res.dump('../results.npz',pt=pt,py=py)
+#res.save('../steadystate.txt', tend=pt[-1], yend=py[:,-1])
 
 #restore=res.load('../results.npz')
 #print(restore.files)

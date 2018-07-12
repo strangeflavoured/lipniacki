@@ -14,3 +14,9 @@ def min(pt):
 def hour(pt):
 	pt=pt/3600
 	return pt
+
+def norm(x):
+	m=np.amax(x)
+	for i in range(0,len(x)):
+		x[i]=x[i]/m
+	return x
