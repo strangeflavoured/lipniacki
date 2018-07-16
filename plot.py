@@ -36,6 +36,7 @@ def figa(pt,px,colour,lab,start,**kwargs):
 	fig, ax=plt.subplots(nrows=1,ncols=1)	
 	for i in range(0,len(px)):
 		ax.plot(pt[i]-start,px[i],c=colour[i],label=lab[i],linestyle=lstyle[i])
+	ax.scatter(0,0,c='k',marker=6)
 
 	if xlim:
 		ax.set_xlim(xlim)

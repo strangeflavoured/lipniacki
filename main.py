@@ -8,6 +8,7 @@ import plot as p
 import results as res
 import colours as c
 import model as mod
+import setting as s
 
 ##CONDITIONS########
 AA=1                # AA=1 wt cell, AA=0 IkBa deficient cell
@@ -17,27 +18,13 @@ kv=5              	#ratio of cytoplasmic to nuclear volume kv=5
 TR=0				#TNF signal
 nftot=0.06		   	#total nfkb
 
-###INITIATION#######
-sol=sim.init(AA,AB,AC,kv,nftot)
+sol=s.solve(AA,AB,AC,kv,nftot)
+pt=sol[0]
+py=sol[1:sol.shape[0]]
 
-###SIMULATION#######
-TR=1
-y0=sol.y[:,-1]
-sol1=sim.sim(AA,AB,AC,kv,TR,y0,60*60*24)
-
-###PROCESSING#######
-SOL=prc.fuse(sol.t,sol.y,sol1.t,sol1.y)
-pt=prc.hour(SOL[0])
-py=SOL[1:SOL.shape[0]]
-
-###PLOTTING#########
-px=[py[6],p.hline(mod.limit1()[6],pt)]
-pt=[pt,pt]
-colour=['navy','gray']
-label=['wt','threshold']
-lstyle=['-','--']
-xlim=(-1,6)
-p.figa(pt,px,colour,label,101,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../resultsNF.png',DPI=500)
+#s.thresh(py,pt,'wt')
+#s.normplt(py,pt)
+#s.discreet(py,pt)
 
 #px=[py[6]]
 #py=[py[9]]
