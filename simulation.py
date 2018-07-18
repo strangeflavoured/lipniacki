@@ -1,5 +1,5 @@
 import numpy as np
-from scipy.integrate import solve_ivp as solve
+from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 
@@ -20,7 +20,7 @@ def init(AA,AB,AC,kv,nftot):
 	###INITIATION#######
 	tspan=[0,60*60*101]
 
-	sol=solve(f,tspan,y0,method='LSODA')
+	sol=solve_ivp(f,tspan,y0,method='LSODA')
 
 	return sol
 
@@ -33,7 +33,7 @@ def sim(AA,AB,AC,kv,TR,y0,time):
 	###INITIATION#######
 	tspan=[0,time]
 
-	sol2=solve(f,tspan,y0,method='LSODA')
+	sol2=solve_ivp(f,tspan,y0,method='LSODA')
 
 	return sol2
 
@@ -68,3 +68,19 @@ def varkv(AA,AB,AC,nftot,time,itr,pvar):
 	fig.tight_layout()
 	plt.show()
 	return SUM
+
+def solve(AA,AB,AC,kv,nftot):
+	###INITIATION#######
+	TR=0
+	sol=init(AA,AB,AC,kv,nftot)
+
+	###SIMULATION#######
+	TR=1
+	y0=sol.y[:,-1]
+	sol1=sim(AA,AB,AC,kv,TR,y0,60*60*24)
+
+	###PROCESSING#######
+	SOL=prc.fuse(sol.t,sol.y,sol1.t,sol1.y)
+	pt=prc.hour(SOL[0])
+	py=SOL[1:SOL.shape[0]]
+	return np.vstack((pt,py))
