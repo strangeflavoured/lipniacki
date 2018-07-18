@@ -7,15 +7,17 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../results.npz')
+restore=load('../../simres/results2018-07-18.npz')
 #print(restore.files)
 pt=restore['pt']
 py=restore['py']
 
 ###ONE AT A TIME###
-s.discreet(py,pt)
-#s.normplt(py,pt)
-#s.thresh(py,pt,'wt')
+#s.discreet(py,pt)
+#s.discreetmean(py,pt)
+#s.discreetmedian(py,pt)
+s.normplt(py,pt)
+s.thresh(py,pt,'wt')
 #s.threshmean(py,pt,'wt')
 #s.threshmedian(py,pt,'wt')
 

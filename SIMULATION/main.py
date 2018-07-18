@@ -18,8 +18,8 @@ pt=sol[0]
 py=sol[1:sol.shape[0]]
 
 ###SAVING###########
-res.dump('../results.npz',pt=pt,py=py)
-#res.save('../steadystate.txt', tend=pt[-1], yend=py[:,-1])
+res.dump('../../simres/results',pt=pt,py=py)
+res.save('../../simres/steadystate', tend=pt[-1], yend=py[:,-1])
 
 ###VARY kv##########
 #itr=np.linspace(1,10,20)
