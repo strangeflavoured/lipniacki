@@ -17,7 +17,7 @@ py=restore['py']
 #s.discreetmean(py,pt)
 #s.discreetmedian(py,pt)
 s.normplt(py,pt)
-s.thresh(py,pt,'wt')
+#s.thresh(py,pt,'wt')
 #s.threshmean(py,pt,'wt')
 #s.threshmedian(py,pt,'wt')
 
