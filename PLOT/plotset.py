@@ -17,7 +17,7 @@ def save(fig):
 	else:
 		print('{} not saved'.format(fig))
 
-def figa(pt,px,colour,lab,start,**kwargs):
+def figa(pt,px,colour,lab,**kwargs):
 	ttl=kwargs.get('title')
 	stl=kwargs.get('style','seaborn-dark')
 	xl=kwargs.get('xlabel')
@@ -26,6 +26,7 @@ def figa(pt,px,colour,lab,start,**kwargs):
 	xlim=kwargs.get('xlim')
 	lstyle=kwargs.get('linestyle')
 	note=kwargs.get('annotate')
+	strt=kwargs.get('start',101)
 	if not lstyle:
 		lstyle=[]
 		for i in range(0,len(px)):
@@ -35,12 +36,11 @@ def figa(pt,px,colour,lab,start,**kwargs):
 
 	fig, ax=plt.subplots(nrows=1,ncols=1)	
 	for i in range(0,len(px)):
-		ax.plot(pt[i]-start,px[i],c=colour[i],label=lab[i],linestyle=lstyle[i])
+		ax.plot(pt[i]-strt,px[i],c=colour[i],label=lab[i],linestyle=lstyle[i])
 	ax.scatter(0,0,c='k',marker=6)
 
 	if xlim:
 		ax.set_xlim(xlim)
-
 	if ttl:
 		ax.set_title(ttl)
 	if xl:

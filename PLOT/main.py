@@ -15,12 +15,15 @@ py=restore['py']
 ###ONE AT A TIME###
 s.plainall(pt,py,'wt')
 #s.discreet(py,pt)
-#s.discreetmean(py,pt)
-#s.discreetmedian(py,pt)
+#s.discrall(py,pt)
 #s.normplt(py,pt)
 #s.thresh(py,pt,'wt')
-#s.threshmean(py,pt,'wt')
-#s.threshmedian(py,pt,'wt')
+s.discrnor(py,pt)
+
+#s.discreetmean(py,pt)#
+#s.discreetmedian(py,pt)#
+#s.threshmean(py,pt,'wt')#
+#s.threshmedian(py,pt,'wt')#
 
 #px=[py[6]]
 #py=[py[9]]

@@ -69,18 +69,18 @@ def varkv(AA,AB,AC,nftot,time,itr,pvar):
 	plt.show()
 	return SUM
 
-def solve(AA,AB,AC,kv,nftot):
+def solve(AA,AB,AC,kv,nftot,**kwargs):
+	tspan=kwargs.get('t',60*60*24)
+	TR=kwargs.get('TR',1)
 	###INITIATION#######
-	TR=0
 	sol=init(AA,AB,AC,kv,nftot)
 
 	###SIMULATION#######
-	TR=1
 	y0=sol.y[:,-1]
-	sol1=sim(AA,AB,AC,kv,TR,y0,60*60*24)
+	sol1=sim(AA,AB,AC,kv,TR,y0,tspan)
 
 	###PROCESSING#######
 	SOL=prc.fuse(sol.t,sol.y,sol1.t,sol1.y)
-	pt=prc.hour(SOL[0])
-	py=SOL[1:SOL.shape[0]]
-	return np.vstack((pt,py))
+	pt=np.stack(prc.hour(SOL[0]))
+	py=np.stack(SOL[1:SOL.shape[0]])
+	return[pt,py,sol1]
