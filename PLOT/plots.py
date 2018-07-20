@@ -5,6 +5,56 @@ import plotset as ps
 import colours as c
 import model as mod
 
+def plainall(pt,py,*string):
+	if string:
+		strg=string[0]
+	else:
+		strg=''
+	###PLOTTING#########
+	t=[pt,pt]
+	px=[py[6],py[5]]
+	colour=['navy','b']
+	label=['nuclear','cytoplasmic']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,101,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/NF'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt]
+	px=[py[1]]
+	colour=[c.blood]
+	label=[strg]
+	lstyle=['-']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,101,xlim=xlim,title='IKKa',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=False,path='../../graphics/IKK'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt]
+	px=[py[7]]
+	colour=[c.darkorange]
+	label=[strg]
+	lstyle=['-']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,101,xlim=xlim,title='A20',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=False,path='../../graphics/A20'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt,pt]
+	px=[py[12],py[13]]
+	colour=[c.green,c.lime]
+	label=['cytoplasmic','nuclear']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,101,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/IkB'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt,pt]
+	px=[py[11],py[8]]
+	colour=[c.slategrey,c.steelblue]
+	label=['I$\kappa$B','A20']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,101,xlim=xlim,title='Transcripts',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/RNA'+strg+'.png',DPI=500)
+
 def thresh(py,pt,string):	
 	###PLOTTING#########
 	t=[pt,pt]

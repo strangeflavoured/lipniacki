@@ -57,7 +57,7 @@ def figa(pt,px,colour,lab,start,**kwargs):
 	fig.tight_layout()	
 	if 'path' in kwargs:
 		fig.savefig(kwargs['path'],dpi=kwargs.get('DPI',500))
-	plt.show()
+	#plt.show()
 	plt.close()
 
 def phaseplt(px,py,colour,colourmap,lab,**kwargs):

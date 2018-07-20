@@ -1,3 +1,27 @@
+#   ##############################################################
+#    #         Function includes system of ODEs describing       #
+#    #         NF-kB regulatory pathway. System                  #
+#    #         includes A20 gene products action as a            #
+#    #         inhibitor of active IKK.                          #    
+#    #         Other protein and compexes are coded as follows:  #
+#    #                                                           #  
+#    #         y[0]   IKKn   neutral                             #    
+#    #         y[1]   IKKa   active                              #
+#    #         y[2]   IKKi   inactive                            #
+#    #         y[3]   (IKKa|IkBa)                                #
+#    #         y[4]   (IKKa|IkBa|NFkB)                           #
+#    #         y[5]   NFkB                                       #
+#    #         y[6]   NFkBn                                      #
+#    #         y[7]   A20                                        #
+#    #         y[8]   A20t                                       #
+#    #         y[9]  IkBa                                        #
+#    #         y[10]  IkBan                                      #
+#    #         y[11]  IkBat                                      #      
+#    #         y[12]  (IkBa|NFkB) cytoplasmic                    #  
+#    #         y[13] (IkBan|NFkBn) nuclear                       #        
+#    #                                                           #
+#    #############################################################
+
 import numpy as np
 
 def limit1(*args):
