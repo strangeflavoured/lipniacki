@@ -1,6 +1,7 @@
 import numpy as np
 import model as mod
 import process as prc
+import results as res
 
 def discrprogr(py):
 	y=[]
@@ -45,3 +46,35 @@ def discrprogr(py):
 			x.append(ii)
 			X.append(np.array(II))
 	return(x,np.array(X))
+
+def analyse(path):
+	restore=res.load(path)
+	##print(restore.files)
+	##pt=restore['pt']
+	##if 'ptsim' in restore.keys():
+	##	ptsim=restore['ptsim']
+
+	py=restore['py']
+	x,X=discrprogr(py)
+
+	y=[]
+	Y=[]
+	if 'pysim' in restore.keys():
+		pysim=restore['pysim']
+		y,Y=discrprogr(pysim)	
+
+	res.save('../../anres/results',x=x,X=X,y=y,Y=Y)
+	res.dump('../../anres/results',x=x,X=X,y=y,Y=Y)
+
+def show(path):
+	rest=res.load(path)
+
+	#X=rest['X']	
+	#for i in range(0,len(X)):
+	#	print(X[i])
+
+	if 'Y' in rest.keys():
+		Y=rest['Y']
+
+		for i in range(0,len(Y)):
+			print(Y[i])

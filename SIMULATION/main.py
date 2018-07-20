@@ -14,13 +14,13 @@ nftot=0.06		   	#total nfkb
 
 sol=sim.solve(AA,AB,AC,kv,nftot)#kwargs: TR, t
 pt=sol[0]
-py=sol[1:sol.shape[0]]
-
+py=sol[1]
+#sol1=sol[2]
 
 ###VARY kv##########
 #itr=np.linspace(1,10,20)
 #SUM=sim.varkv(AA,AB,AC,nftot,time=60*60*24,itr=itr,pvar=6)
 
 ###SAVING###########
-#res.dump('../../simres/results',pt=pt,py=py)
+res.dump('../../simres/results',pt=pt,py=py)#,ptsim=sol1.t,pysim=sol1.y)
 #res.save('../../simres/steadystate', mode='wt',tend=pt[-1]-101, yend=py[:,-1])
