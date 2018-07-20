@@ -12,7 +12,7 @@ kv=5              	#ratio of cytoplasmic to nuclear volume kv=5
 TR=0				#TNF signal
 nftot=0.06		   	#total nfkb
 
-sol=sim.solve(AA,AB,AC,kv,nftot)
+sol=sim.solve(AA,AB,AC,kv,nftot)#kwargs: TR, t
 pt=sol[0]
 py=sol[1:sol.shape[0]]
 
@@ -22,5 +22,5 @@ py=sol[1:sol.shape[0]]
 #SUM=sim.varkv(AA,AB,AC,nftot,time=60*60*24,itr=itr,pvar=6)
 
 ###SAVING###########
-res.dump('../../simres/results',pt=pt,py=py)
-#res.save('../../simres/steadystate', tend=pt[-1], yend=py[:,-1])
+#res.dump('../../simres/results',pt=pt,py=py)
+#res.save('../../simres/steadystate', mode='wt',tend=pt[-1]-101, yend=py[:,-1])
