@@ -7,17 +7,17 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../../simres/results2018-07-19.npz')
+restore=load('../../simres/results2018-07-23.npz')
 #print(restore.files)
 pt=restore['pt']
 py=restore['py']
 
 ###ONE AT A TIME###
-s.plainall(pt,py,'wt')
-s.discreet(py,pt)
-s.discrall(py,pt)
-s.normplt(py,pt)
-s.thresh(py,pt,'wt')
+#s.plainall(pt,py,'wt')
+#s.discreet(py,pt)
+#s.discrall(py,pt)
+#s.normplt(py,pt)
+#s.thresh(py,pt,'wt')
 s.discrnor(py,pt)
 
 #s.discreetmean(py,pt)#
@@ -31,3 +31,8 @@ s.discrnor(py,pt)
 #colourmap=[cm.autumn]
 #lab=['wt']
 #p.phaseplt(px,py,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B')
+
+restore=load('../../anres/evresults2018-07-23.npz')
+dy=restore['y']
+DY=restore['Y']
+s.evplt(dy,DY)

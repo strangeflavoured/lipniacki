@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import matplotlib.cm as cm
 import numpy as np
 
-def hline(val,t):
-	x=[]
-	for i,j in enumerate(t):
-		x.append(val)
-	return x
+def hline(val,pt):
+	hx=[]
+	for i,j in enumerate(pt):
+		hx.append(val)
+	return hx
 
 def save(fig):
 	save=input('save as: ')
