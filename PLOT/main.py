@@ -14,10 +14,10 @@ py=restore['py']
 
 ###ONE AT A TIME###
 s.plainall(pt,py,'wt')
-#s.discreet(py,pt)
-#s.discrall(py,pt)
-#s.normplt(py,pt)
-#s.thresh(py,pt,'wt')
+s.discreet(py,pt)
+s.discrall(py,pt)
+s.normplt(py,pt)
+s.thresh(py,pt,'wt')
 s.discrnor(py,pt)
 
 #s.discreetmean(py,pt)#
