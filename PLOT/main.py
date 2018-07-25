@@ -7,7 +7,7 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../../simres/results2018-07-23.npz')
+restore=load('../../simres/results2018-07-25.npz')
 #print(restore.files)
 pt=restore['pt']
 py=restore['py']
@@ -18,21 +18,23 @@ py=restore['py']
 #s.discrall(py,pt)
 #s.normplt(py,pt)
 #s.thresh(py,pt,'wt')
-s.discrnor(py,pt)
+#s.discrnor(py,pt)
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
 #s.threshmean(py,pt,'wt')#
 #s.threshmedian(py,pt,'wt')#
 
-#px=[py[6]]
-#py=[py[9]]
+#x=[py[6]]
+#y=[py[9]]
 #colour=['r']
-#colourmap=[cm.autumn]
+#colourmap=[cm.winter]
 #lab=['wt']
-#p.phaseplt(px,py,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B')
+#strg='NF-IkB'
+#ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
+##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##
 
-restore=load('../../anres/evresults2018-07-23.npz')
+restore=load('../../anres/evresults2018-07-25.npz')
 dy=restore['y']
 DY=restore['Y']
 s.evplt(dy,DY)

@@ -92,7 +92,8 @@ def phaseplt(px,py,colour,colourmap,lab,**kwargs):
 	ax.grid(c='gray', linewidth=0.5, linestyle='--')
 
 	fig.tight_layout()
-	plt.show()
 	if 'path' in kwargs:
 		fig.savefig(kwargs['path'],dpi=kwargs.get('DPI',500))
+	else:
+		plt.show()
 	plt.close()

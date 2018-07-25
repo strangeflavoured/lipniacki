@@ -2,7 +2,7 @@ import numpy as np
 import datetime
 
 def dump(path,**kwargs):
-	fid=open(path+'{}.npz'.format(datetime.datetime.now()), 'wb+')
+	fid=open(path+'{}.npz'.format(datetime.datetime.today()), 'wb+')
 	np.savez(fid,**kwargs)
 	fid.close()
 
@@ -12,8 +12,8 @@ def load(path):
 	return lst
 
 def save(path,**kwargs):
-	fid=open(path+'{}.txt'.format(datetime.datetime.now()), 'a+')
-	fid.write('{}\r\n'.format(datetime.datetime.now()))
+	fid=open(path+'{}.txt'.format(datetime.datetime.today()), 'a+')
+	fid.write('{}\r\n'.format(datetime.datetime.today()))
 	for key,value in kwargs.items():
 		fid.write('{}={}\r\n'.format(key,value))
 	fid.write('\r\n\r\n')

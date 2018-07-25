@@ -6,7 +6,7 @@ import results as res
 
 ##CONDITIONS########
 AA=1                # AA=1 wt cell, AA=0 IkBa deficient cell
-AB=1                # AB=1 wt cell, AB=0  A20 deficient cell
+AB=0                # AB=1 wt cell, AB=0  A20 deficient cell
 AC=1				# AC=1 wt cell, AC=0 IKKa KO
 kv=5              	#ratio of cytoplasmic to nuclear volume kv=5
 #TR=0				#TNF signal
@@ -22,5 +22,5 @@ sol1=sol[2]
 #SUM=sim.varkv(AA,AB,AC,nftot,time=60*60*24,itr=itr,pvar=6)
 
 ###SAVING###########
-res.dump('../../simres/results',pt=pt,py=py)#,ptsim=sol1.t,pysim=sol1.y)
-#res.save('../../simres/steadystate', mode='wt',tend=pt[-1]-101, yend=py[:,-1])
+res.dump('../../simres/resultsA20KO',pt=pt,py=py,ptsim=sol1.t,pysim=sol1.y)
+res.save('../../simres/steadystateA20KO', mode='wt',tend=pt[-1]-101, yend=py[:,-1])

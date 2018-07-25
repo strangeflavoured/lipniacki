@@ -50,9 +50,9 @@ def plainall(pt,py,*string):
 	###PLOTTING#########
 	t=[pt,pt]
 	px=[py[11],py[8]]
-	colour=[c.slategrey,c.steelblue]
+	colour=[c.maroon,c.steelblue]
 	label=['I$\kappa$B','A20']
-	lstyle=['-','--']
+	lstyle=['--',':']
 	xlim=(-1,6)
 	ps.figa(t,px,colour,label,xlim=xlim,title='Transcripts',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/RNA'+strg+'.png',DPI=500)
 
@@ -240,10 +240,10 @@ def evplt(dy,DY):
 	plt.plot(dt,dy[12],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
 	plt.legend()
 	plt.xlim(0,4000)
-	plt.xlabel('t$\\ /\\ $[a.u.]')
+	plt.ylabel('change d')
+	plt.xlabel('time steps')
 	plt.tight_layout()
-	plt.savefig('../../graphics/evplttime.png',dpi=500)
-	plt.show()
+	plt.savefig('../../graphics/evplttimend.png',dpi=500)
 	plt.close()
 
 	plt.style.use('seaborn-darkgrid')
@@ -252,9 +252,9 @@ def evplt(dy,DY):
 	plt.plot(DT,DY[7],'-.',c=c.darkorange,label='A20')
 	plt.plot(DT,DY[12],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
 	plt.legend()
-	plt.xlim(0,100)
-	plt.xlabel('t$\\ /\\ $[a.u.]')
+	plt.xlim(0,85)
+	plt.ylabel('change d')
+	plt.xlabel('time steps')
 	plt.tight_layout()
 	plt.savefig('../../graphics/evpltscale.png',dpi=500)
-	plt.show()
 	plt.close()
