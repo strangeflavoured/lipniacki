@@ -8,17 +8,17 @@ import plots as s
 from results import load
 
 restore=load('../../simres/results2018-07-25.npz')
-#print(restore.files)
+##print(restore.files)
 pt=restore['pt']
 py=restore['py']
 
 ###ONE AT A TIME###
 #s.plainall(pt,py,'wt')
-#s.discreet(py,pt)
-#s.discrall(py,pt)
+s.discreet(py,pt,mode='mean')
+#s.discrall(py,pt,mode='mean')
 #s.normplt(py,pt)
 #s.thresh(py,pt,'wt')
-#s.discrnor(py,pt)
+#s.discrnor(py,pt,mode='mean')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
@@ -34,7 +34,7 @@ py=restore['py']
 #ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##
 
-restore=load('../../anres/evresults2018-07-25.npz')
-dy=restore['y']
-DY=restore['Y']
-s.evplt(dy,DY)
+#restore=load('../../anres/evresultsmean2018-07-31.npz')
+#dy=restore['y']
+#DY=restore['Y']
+#s.evplt(dy,DY,strg='mean')

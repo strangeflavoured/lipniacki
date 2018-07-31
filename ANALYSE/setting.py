@@ -3,14 +3,25 @@ import model as mod
 import process as prc
 import results as res
 
-def discrprogr(py):
+def discr(py,**kwargs):
+	mode=kwargs.get('mode','limit')
 	y=[]
 	for i in range(0,len(py)):
-		if i==1:
-			y.append(np.array(prc.discr(py[i],mod.limit1(i),mod.limitKO(i))))
-		else:
-			y.append(np.array(prc.discr(py[i],mod.limit1(i))))
+		if mode=='limit':
+			if i==1:
+				y.append(np.array(prc.discr(py[i],mod.limit1(i),mod.limitKO(i))))
+			else:
+				y.append(np.array(prc.discr(py[i],mod.limit1(i))))
+		elif mode=='mean':
+			if i==1:
+				y.append(np.array(prc.discr(py[i],mod.meanpy(i)/2,mod.meanpy(i))))
+			else:
+				y.append(np.array(prc.discr(py[i],mod.meanpy(i))))
 	y=np.stack(y)
+	return y
+
+def discrprogr(py,**kwargs):
+	y=discr(py,**kwargs)
 
 	dy=[]
 	for i in range(0,len(y)):
@@ -47,14 +58,8 @@ def discrprogr(py):
 			X.append(np.array(II))
 	return(x,np.array(X))
 
-def evaldiscr(py):
-	y=[]
-	for i in range(0,len(py)):
-		if i==1:
-			y.append(np.array(prc.discr(py[i],mod.limit1(i),mod.limitKO(i))))
-		else:
-			y.append(np.array(prc.discr(py[i],mod.limit1(i))))
-	y=np.stack(y)
+def evaldiscr(py,**kwargs):
+	y=discr(py,**kwargs)
 
 	dy=[]
 	for i in range(0,y.shape[0]):
@@ -79,7 +84,7 @@ def evaldiscr(py):
 	DY=np.transpose(DY)
 	return (dy,DY)
 
-def analyse(path):
+def analyse(path,**kwargs):
 	restore=res.load(path)
 	##print(restore.files)
 	##pt=restore['pt']
@@ -87,18 +92,18 @@ def analyse(path):
 	##	ptsim=restore['ptsim']
 
 	py=restore['py']
-	x,X=discrprogr(py)
+	x,X=discrprogr(py,**kwargs)
 
 	y=[]
 	Y=[]
 	if 'pysim' in restore.keys():
 		pysim=restore['pysim']
-		y,Y=discrprogr(pysim)	
+		y,Y=discrprogr(pysim,**kwargs)	
 
-	res.save('../../anres/anresults',x=x,X=X,y=y,Y=Y)
-	res.dump('../../anres/anresults',x=x,X=X,y=y,Y=Y)
+	res.save('../../anres/anresults{}'.format(kwargs.get('mode','')),x=x,X=X,y=y,Y=Y)
+	res.dump('../../anres/anresults{}'.format(kwargs.get('mode','')),x=x,X=X,y=y,Y=Y)
 
-def evaluate(path):
+def evaluate(path,**kwargs):
 	restore=res.load(path)
 	##print(restore.files)
 	##pt=restore['pt']
@@ -106,16 +111,16 @@ def evaluate(path):
 	##	ptsim=restore['ptsim']
 
 	py=restore['py']
-	dy,DY=evaldiscr(py)
+	dy,DY=evaldiscr(py,**kwargs)
 
 	y=[]
 	Y=[]
 	if 'pysim' in restore.keys():
 		pysim=restore['pysim']
-		y,Y=evaldiscr(pysim)	
+		y,Y=evaldiscr(pysim,**kwargs)	
 
-	res.save('../../anres/evresults',dy=dy,DY=DY,y=y,Y=Y)
-	res.dump('../../anres/evresults',dy=dy,DY=DY,y=y,Y=Y)
+	res.save('../../anres/evresults{}'.format(kwargs.get('mode','')),dy=dy,DY=DY,y=y,Y=Y)
+	res.dump('../../anres/evresults{}'.format(kwargs.get('mode','')),dy=dy,DY=DY,y=y,Y=Y)
 
 def show(path):
 	rest=res.load(path)

@@ -7,7 +7,7 @@ def norm(x):
 		nx[i]=nx[i]/m
 	return nx
 
-def discr(x,*thresh):
+def discr(x,*thresh):#thresh increasing
 	l=len(thresh)
 	lx=len(x)
 	diy=np.zeros((lx,))
