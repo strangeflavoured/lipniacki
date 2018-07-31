@@ -249,7 +249,7 @@ def discrnor(py,pt,**kwargs):
 	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/NFdiscrnor{}.png'.format(kwargs.get('mode','mean')),DPI=500)	
 		
 	px=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(m7,pt)]
-	colour=[c.darkorange,c.yellow,'gray']
+	colour=[c.darkorange,c.gold,'gray']
 	ps.figa(t,px,colour,label,xlim=xlim,title='A20',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/A20discrnor{}.png'.format(kwargs.get('mode','mean')),DPI=500)
 	
 	px=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(m12,pt)]

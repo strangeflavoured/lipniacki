@@ -17,6 +17,16 @@ def discr(py,**kwargs):
 				y.append(np.array(prc.discr(py[i],mod.meanpy(i)/2,mod.meanpy(i))))
 			else:
 				y.append(np.array(prc.discr(py[i],mod.meanpy(i))))
+		elif mode =='half':
+			if i==1:
+				y.append(np.array(prc.discr(py[i],mod.meanpy(i)/2,(mod.limit0(i)+mod.limit1(i))/2)))
+			else:
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2)))
+		elif mode=='hmean':
+			if i==1:
+				y.append(np.array(prc.discr(py[i],mod.meanpy(i)/2,(mod.limit0(i)+mod.meanpy(i))/2)))
+			else:
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.meanpy(i))/2)))
 	y=np.stack(y)
 	return y
 
