@@ -7,18 +7,18 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../../simres/results2018-07-25.npz')
+restore=load('../../simres/resultsA20KO2018-07-25.npz')
 ##print(restore.files)
 pt=restore['pt']
 py=restore['py']
 
 ###ONE AT A TIME###
 #s.plainall(pt,py,'wt')
-s.discreet(py,pt,mode='mean')
+#s.discreet(py,pt,mode='mean')
 #s.discrall(py,pt,mode='mean')
 #s.normplt(py,pt)
 #s.thresh(py,pt,'wt')
-#s.discrnor(py,pt,mode='mean')
+s.discrnor(py,pt,mode='custom2',name='A20KO')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
@@ -34,7 +34,7 @@ s.discreet(py,pt,mode='mean')
 #ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##
 
-#restore=load('../../anres/evresultsmean2018-07-31.npz')
+#restore=load('../../anres/evresultsA20KOcustom22018-08-03.npz')
 #dy=restore['y']
 #DY=restore['Y']
-#s.evplt(dy,DY,strg='mean')
+#s.evplt(dy,DY,strg='A20KOcustom2')

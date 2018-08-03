@@ -97,18 +97,7 @@ def normplt(py,pt,*string):
 
 def discreet(py,pt,*string,**kwargs):
 	mode=kwargs.get('mode','limit')
-	if mode=='limit':
-		m6=mod.limit1(6)
-		m7=mod.limit1(7)
-		m12=mod.limit1(12)
-		m1=mod.limit1(1)
-		n1=mod.limitKO(1)
-	elif mode=='mean':
-		m6=mod.meanpy(6)
-		m7=mod.meanpy(7)
-		m12=mod.meanpy(12)
-		n1=mod.meanpy(1)/np.amax(py[1])
-		m1=n1/2
+	(m6,m7,m12,m1,n1)=prc.evmode(mode,py)
 	t=[pt,pt,pt,pt]
 	px=[prc.discr(py[1],m1,n1),prc.discr(py[6],m6),prc.discr(py[7],m7),prc.discr(py[12],m12)]
 	colour=[c.blood,'navy',c.darkorange,c.green]
@@ -119,18 +108,7 @@ def discreet(py,pt,*string,**kwargs):
 
 def discrall(py,pt,*string,**kwargs):	
 	mode=kwargs.get('mode','limit')
-	if mode=='limit':
-		m6=mod.limit1(6)
-		m7=mod.limit1(7)
-		m12=mod.limit1(12)
-		m1=mod.limit1(1)
-		n1=mod.limitKO(1)
-	elif mode=='mean':
-		m6=mod.meanpy(6)
-		m7=mod.meanpy(7)
-		m12=mod.meanpy(12)
-		n1=mod.meanpy(1)/np.amax(py[1])
-		m1=n1/2
+	(m6,m7,m12,m1,n1)=prc.evmode(mode,py)
 	t=[pt]
 	xlim=(-1,6)
 	lstyle=['-']
@@ -227,18 +205,7 @@ def threshmedian(py,pt,string):
 
 def discrnor(py,pt,**kwargs):
 	mode=kwargs.get('mode','limit')
-	if mode=='limit':
-		m6=mod.limit1(6)/np.amax(py[6])
-		m7=mod.limit1(7)/np.amax(py[7])	
-		m12=mod.limit1(12)/np.amax(py[12])
-		m1=mod.limit1(1)/np.amax(py[1])
-		n1=mod.limitKO(1)/np.amax(py[1])
-	elif mode=='mean':
-		m6=mod.meanpy(6)/np.amax(py[6])
-		m7=mod.meanpy(7)/np.amax(py[7])	
-		m12=mod.meanpy(12)/np.amax(py[12])		
-		n1=mod.meanpy(1)/np.amax(py[1])
-		m1=n1/2
+	(m6,m7,m12,m1,n1)=prc.evmode(mode,py)
 	t=[pt,pt,pt]
 	xlim=(-1,6)
 	label=['Normalisation','Discretisation','$\\vartheta$']
@@ -246,22 +213,22 @@ def discrnor(py,pt,**kwargs):
 
 	px=[prc.norm(py[6]),prc.discr(py[6],m6),ps.hline(m6,pt)]
 	colour=['navy',c.dodgerblue,'gray']	
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/NFdiscrnor{}.png'.format(kwargs.get('mode','mean')),DPI=500)	
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/NFdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)	
 		
 	px=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(m7,pt)]
 	colour=[c.darkorange,c.gold,'gray']
-	ps.figa(t,px,colour,label,xlim=xlim,title='A20',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/A20discrnor{}.png'.format(kwargs.get('mode','mean')),DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='A20',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/A20discrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
 	
 	px=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(m12,pt)]
 	colour=[c.green,c.lime,'gray']	
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/IkBdiscrnor{}.png'.format(kwargs.get('mode','mean')),DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/IkBdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
 	
 	lstyle.append(':')
 	t.append(pt)
 	label.append('$\\vartheta_2$')
 	px=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(m1,pt),ps.hline(n1,pt)]
 	colour=[c.blood,'r','gray','gray']		
-	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/IKKdiscrnor{}.png'.format(kwargs.get('mode','mean')))
+	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',linestyle=lstyle,xlabel='t$\\ /\\ $[h]',ylabel='c$\\ / \\ $ [a.u.]',label=True,path='../../graphics/IKKdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')))
 
 def evplt(dy,DY,**kwargs):
 	dt=np.arange(dy.shape[1])
