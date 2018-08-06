@@ -240,6 +240,7 @@ def evplt(dy,DY,**kwargs):
 	plt.plot(dt,dy[7],'-.',c=c.darkorange,label='A20')
 	plt.plot(dt,dy[12],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
 	plt.legend()
+	plt.yticks([-1,0,1])
 	plt.xlim(0,4000)
 	plt.ylabel('change d')
 	plt.xlabel('time steps')
@@ -253,6 +254,7 @@ def evplt(dy,DY,**kwargs):
 	plt.plot(DT,DY[7],'-.',c=c.darkorange,label='A20')
 	plt.plot(DT,DY[12],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
 	plt.legend()
+	plt.yticks([-1,0,1])
 	if np.amax(DT)>85:
 		plt.xlim(0,85)
 	plt.ylabel('change d')
