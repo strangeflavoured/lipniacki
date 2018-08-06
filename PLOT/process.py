@@ -60,8 +60,8 @@ def evmode(mode,py):
 		n1=(mod.limit0(1)+mod.limitKO(1))/(2*mod.pymax(1))
 	elif mode=='custom2':
 		m6=mod.mean24(6)/mod.pymax(6)
-		m7=(mod.limit0(7)+mod.limit1(7))/(2*mod.pymax(7))
+		m7=mod.limit0(7)+mod.limit1(7)/(2*mod.pymax(7))
 		m12=mod.mean24(12)/mod.pymax(12)
-		m1=(mod.limit0(1)+mod.limit1(1))/(2*mod.pymax(1))
-		n1=(mod.mean24(1)/mod.pymax(1))
+		m1=mod.limit0(1)+mod.limit1(1)/(2*mod.pymax(1))
+		n1=mod.mean24(1)/mod.pymax(1)
 	return (m6,m7,m12,m1,n1)
