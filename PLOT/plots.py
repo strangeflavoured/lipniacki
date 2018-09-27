@@ -18,7 +18,7 @@ def plainall(pt,py,*string):
 	label=[strg]
 	lstyle=['-']
 	xlim=(-1,6)
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/NF'+strg+'.png',DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=False,path='../../graphics/NF'+strg+'.png',DPI=500)
 
 	###PLOTTING#########
 	t=[pt]
@@ -45,7 +45,7 @@ def plainall(pt,py,*string):
 	label=[strg]
 	lstyle=['-']
 	xlim=(-1,6)
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/IkB'+strg+'.png',DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=False,path='../../graphics/IkB'+strg+'.png',DPI=500)
 
 	###PLOTTING#########
 	#t=[pt,pt]
