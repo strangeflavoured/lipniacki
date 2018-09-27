@@ -13,10 +13,10 @@ def plainall(pt,py,*string):
 		strg=''
 	###PLOTTING#########
 	t=[pt,pt]
-	px=[py[6],py[5]]
-	colour=['navy','b']
-	label=['nuclear','cytoplasmic']
-	lstyle=['-','--']
+	px=[py[6]]
+	colour=['navy']
+	label=[strg]
+	lstyle=['-']
 	xlim=(-1,6)
 	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/NF'+strg+'.png',DPI=500)
 
@@ -40,21 +40,21 @@ def plainall(pt,py,*string):
 
 	###PLOTTING#########
 	t=[pt,pt]
-	px=[py[12],py[13]]
-	colour=[c.green,c.lime]
-	label=['cytoplasmic','nuclear']
-	lstyle=['-','--']
+	px=[py[12]]
+	colour=[c.green]
+	label=[strg]
+	lstyle=['-']
 	xlim=(-1,6)
 	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/IkB'+strg+'.png',DPI=500)
 
 	###PLOTTING#########
-	t=[pt,pt]
-	px=[py[11],py[8]]
-	colour=[c.maroon,c.steelblue]
-	label=['I$\kappa$B','A20']
-	lstyle=['--',':']
-	xlim=(-1,6)
-	ps.figa(t,px,colour,label,xlim=xlim,title='Transcripts',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/RNA'+strg+'.png',DPI=500)
+	#t=[pt,pt]
+	#px=[py[11],py[8]]
+	#colour=[c.maroon,c.steelblue]
+	#label=['I$\kappa$B','A20']
+	#lstyle=['--',':']
+	#xlim=(-1,6)
+	#ps.figa(t,px,colour,label,xlim=xlim,title='Transcripts',linestyle=lstyle,xlabel='h',ylabel='$\mu$M',label=True,path='../../graphics/RNA'+strg+'.png',DPI=500)
 
 def thresh(py,pt,string):	
 	###PLOTTING#########

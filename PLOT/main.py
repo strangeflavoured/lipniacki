@@ -7,18 +7,18 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../../simres/resultsA20KO2018-07-25.npz')
+restore=load('../../simres/results2018-07-25.npz')
 ##print(restore.files)
 pt=restore['pt']
 py=restore['py']
 
 ###ONE AT A TIME###
-#s.plainall(pt,py,'wt')
+s.plainall(pt,py,'wt')
 #s.discreet(py,pt,mode='mean')
 #s.discrall(py,pt,mode='mean')
 #s.normplt(py,pt)
 #s.thresh(py,pt,'wt')
-s.discrnor(py,pt,mode='custom2',name='A20KO')
+#s.discrnor(py,pt,mode='custom2',name='A20KO')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
