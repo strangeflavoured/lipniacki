@@ -18,7 +18,7 @@ def plainall(pt,py,*string):
 	label=[strg]
 	lstyle=['-']
 	xlim=(-1,6)
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\$h',ylabel='c$\\ /\\$ $\mu$M',label=False,path='../../graphics/NF'+strg+'.png',DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=False,path='../../graphics/NF'+strg+'.png',DPI=500)
 
 	###PLOTTING#########
 	t=[pt]
@@ -27,7 +27,7 @@ def plainall(pt,py,*string):
 	label=[strg]
 	lstyle=['-']
 	xlim=(-1,6)
-	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',linestyle=lstyle,xlabel='t$\\ /\\$h',ylabel='c$\\ /\\$ $\mu$M',label=False,path='../../graphics/IKK'+strg+'.png',DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=False,path='../../graphics/IKK'+strg+'.png',DPI=500)
 
 	###PLOTTING#########
 	t=[pt]
@@ -36,7 +36,7 @@ def plainall(pt,py,*string):
 	label=[strg]
 	lstyle=['-']
 	xlim=(-1,6)
-	ps.figa(t,px,colour,label,xlim=xlim,title='A20',linestyle=lstyle,xlabel='t$\\ /\\$h',ylabel='c$\\ /\\$ $\mu$M',label=False,path='../../graphics/A20'+strg+'.png',DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='A20',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=False,path='../../graphics/A20'+strg+'.png',DPI=500)
 
 	###PLOTTING#########
 	t=[pt,pt]
@@ -45,7 +45,7 @@ def plainall(pt,py,*string):
 	label=[strg]
 	lstyle=['-']
 	xlim=(-1,6)
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\$h',ylabel='c$\\ /\\$ $\mu$M',label=False,path='../../graphics/IkB'+strg+'.png',DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=False,path='../../graphics/IkB'+strg+'.png',DPI=500)
 
 	###PLOTTING#########
 	#t=[pt,pt]
@@ -54,7 +54,7 @@ def plainall(pt,py,*string):
 	#label=['I$\kappa$B','A20']
 	#lstyle=['--',':']
 	#xlim=(-1,6)
-	#ps.figa(t,px,colour,label,xlim=xlim,title='Transcripts',linestyle=lstyle,xlabel='t$\\ /\\$h',ylabel='c$\\ /\\$ $\mu$M',label=True,path='../../graphics/RNA'+strg+'.png',DPI=500)
+	#ps.figa(t,px,colour,label,xlim=xlim,title='Transcripts',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/RNA'+strg+'.png',DPI=500)
 
 def thresh(py,pt,string):	
 	###PLOTTING#########
@@ -66,7 +66,7 @@ def thresh(py,pt,string):
 	###PLOTTING#########	
 	px=[py[6],ps.hline(mod.limit1(6),pt)]
 	colour=['navy','gray']
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/NF'+string+'thresh.png',DPI=500)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ \/\\ $h',ylabel='c$\\ /\\$ $\\mu$M',label=True,path='../../graphics/NF'+string+'thresh.png',DPI=500)
 
 	###PLOTTING#########
 	px=[py[7],ps.hline(mod.limit1(7),pt)]
