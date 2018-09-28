@@ -65,3 +65,23 @@ def evmode(mode,py):
 		m1=mod.limit0(1)+mod.limit1(1)/(2*mod.pymax(1))
 		n1=mod.mean24(1)/mod.pymax(1)
 	return (m6,m7,m12,m1,n1)
+
+def ceem(arr):
+	#removes empty element indices
+	d=arr.copy()
+	i=0
+	while i<d.shape[1]:
+		if not d[:,i].any():
+			d=np.delete(d,i,1)
+			i-=1
+		i+=1
+	return d
+
+def insee(arr):
+	#inserts empty element index after every index
+	v=arr.copy()
+	i=0
+	while i<=v.shape[1]:
+		v=np.insert(v,i,0,axis=1)
+		i+=2
+	return v

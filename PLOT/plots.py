@@ -210,29 +210,30 @@ def discrnor(py,pt,**kwargs):
 	xlim=(-1,6)
 	label=['Normalisation','Discretisation','$\\vartheta$']
 	lstyle=['-','--','-.']
+	tick=(0,0.25,0.5,.75,1)
 
 	px=[prc.norm(py[6]),prc.discr(py[6],m6),ps.hline(m6,pt)]
-	colour=['navy',c.dodgerblue,'gray']	
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/NFdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)	
+	colour=['navy',c.dodgerblue,c.plum]	
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/NFdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)	
 		
-	px=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(m7,pt)]
-	colour=[c.darkorange,c.gold,'gray']
-	ps.figa(t,px,colour,label,xlim=xlim,title='A20',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/A20discrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
-	
 	px=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(m12,pt)]
-	colour=[c.green,c.lime,'gray']	
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IkBdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
+	colour=[c.green,c.lime,c.plum]	
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IkBdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
 	
-	lstyle.append(':')
+	lstyle[2]=':'
+	px=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(m7,pt)]
+	colour=[c.darkorange,c.gold,c.deeppink]
+	ps.figa(t,px,colour,label,xlim=xlim,title='A20',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/A20discrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
+	
+	lstyle.append('-.')
 	t.append(pt)
 	label.append('$\\vartheta_2$')
 	px=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(m1,pt),ps.hline(n1,pt)]
-	colour=[c.blood,'r','gray','gray']		
-	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IKKdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')))
+	colour=[c.blood,'r',c.deeppink,c.plum]		
+	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IKKdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')))
 
 def evplt(dy,DY,**kwargs):
-	dt=np.arange(dy.shape[1])
-	DT=np.arange(DY.shape[1])
+	dt=np.arange(dy.shape[1])	
 
 	plt.style.use('seaborn-darkgrid')
 	plt.plot(dt,dy[1],'-',c=c.blood,label='IKKa')
@@ -242,22 +243,26 @@ def evplt(dy,DY,**kwargs):
 	plt.legend()
 	plt.yticks([-1,0,1])
 	plt.xlim(0,4000)
-	plt.ylabel('change d')
+	plt.ylabel('change')
 	plt.xlabel('time steps')
 	plt.tight_layout()
 	plt.savefig('../../graphics/evplttimend{}.png'.format(kwargs.get('strg','')),dpi=500)
 	plt.close()
 
 	plt.style.use('seaborn-darkgrid')
-	plt.plot(DT,DY[1],'-',c=c.blood,label='IKKa')
-	plt.plot(DT,DY[6],'--',c=c.navy,label='NF$\kappa$B')
-	plt.plot(DT,DY[7],'-.',c=c.darkorange,label='A20')
-	plt.plot(DT,DY[12],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
+
+	D=prc.insee(prc.ceem(np.array([DY[1],DY[6],DY[7],DY[12]])))
+	DT=np.arange(D.shape[1])
+
+	plt.plot(DT,D[0],'-',c=c.blood,label='IKKa')
+	plt.plot(DT,D[1],'--',c=c.navy,label='NF$\kappa$B')
+	plt.plot(DT,D[2],'-.',c=c.darkorange,label='A20')
+	plt.plot(DT,D[3],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
 	plt.legend()
 	plt.yticks([-1,0,1])
 	if np.amax(DT)>85:
 		plt.xlim(0,85)
-	plt.ylabel('change d')
+	plt.ylabel('change')
 	plt.xlabel('time steps')
 	plt.tight_layout()
 	plt.savefig('../../graphics/evpltscale{}.png'.format(kwargs.get('strg','')),dpi=500)
