@@ -19,14 +19,28 @@ def discr(py,**kwargs):
 				y.append(np.array(prc.discr(py[i],mod.meanpy(i))))
 		elif mode =='half':
 			if i==1:
-				y.append(np.array(prc.discr(py[i],mod.meanpy(i)/2,(mod.limit0(i)+mod.limit1(i))/2)))
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2,(mod.limit0(i)+mod.limitKO(i))/2)))
 			else:
 				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2)))
 		elif mode=='hmean':
 			if i==1:
-				y.append(np.array(prc.discr(py[i],mod.meanpy(i)/2,(mod.limit0(i)+mod.meanpy(i))/2)))
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.meanpy(i))/2,(mod.limit0(i)+mod.meanKO(i))/2)))
 			else:
 				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.meanpy(i))/2)))
+		elif mode=='custom':
+			if i==1:
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2,(mod.limit0(i)+mod.limitKO(i))/2)))
+			elif i==7:
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.pymax(i))/2)))
+			else:
+				y.append(np.array(prc.discr(py[i],mod.mean24(i))))
+		elif mode=='custom2':
+			if i==1:
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2,mod.mean24(i))))
+			elif i==7:
+				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2)))
+			else:
+				y.append(np.array(prc.discr(py[i],mod.mean24(i))))
 	y=np.stack(y)
 	return y
 
@@ -110,8 +124,8 @@ def analyse(path,**kwargs):
 		pysim=restore['pysim']
 		y,Y=discrprogr(pysim,**kwargs)	
 
-	res.save('../../anres/anresults{}'.format(kwargs.get('mode','')),x=x,X=X,y=y,Y=Y)
-	res.dump('../../anres/anresults{}'.format(kwargs.get('mode','')),x=x,X=X,y=y,Y=Y)
+	res.save('../../anres/anresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','')),x=x,X=X,y=y,Y=Y)
+	res.dump('../../anres/anresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','')),x=x,X=X,y=y,Y=Y)
 
 def evaluate(path,**kwargs):
 	restore=res.load(path)
@@ -129,8 +143,8 @@ def evaluate(path,**kwargs):
 		pysim=restore['pysim']
 		y,Y=evaldiscr(pysim,**kwargs)	
 
-	res.save('../../anres/evresults{}'.format(kwargs.get('mode','')),dy=dy,DY=DY,y=y,Y=Y)
-	res.dump('../../anres/evresults{}'.format(kwargs.get('mode','')),dy=dy,DY=DY,y=y,Y=Y)
+	res.save('../../anres/evresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','limit')),dy=dy,DY=DY,y=y,Y=Y)
+	res.dump('../../anres/evresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','limit')),dy=dy,DY=DY,y=y,Y=Y)
 
 def show(path):
 	rest=res.load(path)

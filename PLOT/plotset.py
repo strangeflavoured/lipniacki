@@ -27,6 +27,8 @@ def figa(pt,px,colour,lab,**kwargs):
 	lstyle=kwargs.get('linestyle')
 	note=kwargs.get('annotate')
 	strt=kwargs.get('start',101)
+	ytick=kwargs.get('yticks')
+	xtick=kwargs.get('xticks')
 	if not lstyle:
 		lstyle=[]
 		for i in range(0,len(px)):
@@ -51,6 +53,11 @@ def figa(pt,px,colour,lab,**kwargs):
 		ax.legend()
 	if note:
 		ax.annotate(note)
+	if ytick:
+		ax.set_yticks(ytick)
+	if xtick:
+		ax.set_xticks(xtick)
+		
 
 	ax.grid(c='gray', linewidth=0.5, linestyle='--')
 
