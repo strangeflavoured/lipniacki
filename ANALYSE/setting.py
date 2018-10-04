@@ -2,6 +2,7 @@ import numpy as np
 import model as mod
 import process as prc
 import results as res
+import matplotlib.pyplot as plt
 
 def discr(py,**kwargs):
 	mode=kwargs.get('mode','limit')
@@ -106,7 +107,7 @@ def evaldiscr(py,**kwargs):
 		if np.any(dy[:,i]):
 			DY.append(dy[:,i])
 	DY=np.transpose(DY)
-	return (dy,DY)
+	return (dy,DY,y)
 
 def analyse(path,**kwargs):
 	restore=res.load(path)
@@ -135,16 +136,17 @@ def evaluate(path,**kwargs):
 	##	ptsim=restore['ptsim']
 
 	py=restore['py']
-	dy,DY=evaldiscr(py,**kwargs)
+	t0=restore['t0']
+	dy,DY,disc=evaldiscr(py,**kwargs)
 
 	y=[]
 	Y=[]
 	if 'pysim' in restore.keys():
 		pysim=restore['pysim']
-		y,Y=evaldiscr(pysim,**kwargs)	
+		y,Y,trash=evaldiscr(pysim,**kwargs)
 
-	res.save('../../anres/evresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','limit')),dy=dy,DY=DY,y=y,Y=Y)
-	res.dump('../../anres/evresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','limit')),dy=dy,DY=DY,y=y,Y=Y)
+	res.save('../../anres/evresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','limit')),dy=dy,DY=DY,y=y,Y=Y,t0=disc[:,t0])
+	res.dump('../../anres/evresults{}{}'.format(kwargs.get('string',''),kwargs.get('mode','limit')),dy=dy,DY=DY,y=y,Y=Y,t0=disc[:,t0])
 
 def show(path):
 	rest=res.load(path)
