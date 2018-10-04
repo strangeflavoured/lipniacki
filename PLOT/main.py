@@ -7,7 +7,7 @@ import colours as c
 import plots as s
 from results import load
 
-#restore=load('../../simres/results2018-07-25.npz')
+#restore=load('../../simres/results2018-10-04.npz')
 ##print(restore.files)
 #pt=restore['pt']
 #py=restore['py']
@@ -34,8 +34,8 @@ from results import load
 #ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##
 
-restore=load('../../anres/evresultsA20KOcustom22018-10-04.npz')
-dy=restore['y']
-DY=restore['Y']
-print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])
-s.evplt(dy,DY,strg='A20KOcustom2')
+#restore=load('../../anres/evresultsA20KOcustom22018-10-04.npz')
+#dy=restore['y']
+#DY=restore['Y']
+#print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])
+#s.evplt(dy,DY,strg='A20KOcustom2')
