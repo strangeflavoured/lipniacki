@@ -7,10 +7,12 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../../simres/results2018-08-02.npz')
+#restore=load('../../simres/results2018-10-04.npz')
 ##print(restore.files)
 pt=restore['ptsim']
 py=restore['pysim']
+#pt=restore['pt']
+#py=restore['py']
 
 ###ONE AT A TIME###
 #s.plainall(pt,py,'wt')
@@ -38,7 +40,13 @@ ps.phase3d(x,y,z,a,colourmap,lab,xlabel='$NF\kappa B_n$',ylabel='$(I\kappa B:NF\
 #ps.phaseplt(x,y,t,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##
 
-#restore=load('../../anres/evresultscustom22018-08-03.npz')
-#dy=restore['y']
-#DY=restore['Y']
-#s.evplt(dy,DY,strg='custom2')
+'''restore=load('../../anres/evresultscustom22018-08-03.npz')
+dy=restore['y']
+DY=restore['Y']
+s.evplt(dy,DY,strg='custom2')'''
+
+'''restore=load('../../anres/evresultsA20KOcustom22018-10-04.npz')
+dy=restore['y']
+DY=restore['Y']
+print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])
+s.evplt(dy,DY,strg='A20KOcustom2')'''

@@ -83,4 +83,4 @@ def solve(AA,AB,AC,kv,nftot,**kwargs):
 	SOL=prc.fuse(sol.t,sol.y,sol1.t,sol1.y)
 	pt=np.stack(prc.hour(SOL[0]))
 	py=np.stack(SOL[1:SOL.shape[0]])
-	return[pt,py,sol1]
+	return[pt,py,sol1,sol.t.shape[0]]
