@@ -10,7 +10,9 @@ from results import load
 '''restore=load('../../simres/results2018-10-04.npz')
 ##print(restore.files)
 pt=restore['pt']
-py=restore['py']'''
+py=restore['py']
+pt=restore['ptsim']
+py=restore['pysim']'''
 
 '''###ONE AT A TIME###
 s.plainall(pt,py,'wt')
