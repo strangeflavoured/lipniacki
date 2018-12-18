@@ -19,7 +19,7 @@ def save(fig):
 
 def figa(pt,px,colour,lab,**kwargs):
 	ttl=kwargs.get('title')
-	stl=kwargs.get('style','seaborn-dark')
+	stl=kwargs.get('style','seaborn-paper')
 	xl=kwargs.get('xlabel')
 	yl=kwargs.get('ylabel')
 	label=kwargs.get('label')

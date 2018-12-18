@@ -235,7 +235,7 @@ def discrnor(py,pt,**kwargs):
 def evplt(dy,DY,**kwargs):
 	dt=np.arange(dy.shape[1])	
 
-	plt.style.use('seaborn-darkgrid')
+	plt.style.use('seaborn-paper')
 	plt.plot(dt,dy[1],'-',c=c.blood,label='IKKa')
 	plt.plot(dt,dy[6],'--',c=c.navy,label='NF$\kappa$B')
 	plt.plot(dt,dy[7],'-.',c=c.darkorange,label='A20')
@@ -244,7 +244,8 @@ def evplt(dy,DY,**kwargs):
 	plt.yticks([-1,0,1])
 	plt.xlim(0,4000)
 	plt.ylabel('change')
-	plt.xlabel('time steps')
+	plt.xticks([0])
+	plt.xlabel('time')
 	plt.tight_layout()
 	plt.savefig('../../graphics/evplttimend{}.png'.format(kwargs.get('strg','')),dpi=500)
 	plt.close()
@@ -263,7 +264,27 @@ def evplt(dy,DY,**kwargs):
 	if np.amax(DT)>85:
 		plt.xlim(0,85)
 	plt.ylabel('change')
-	plt.xlabel('time steps')
+	plt.xticks([0])
+	plt.xlabel('time')
 	plt.tight_layout()
 	plt.savefig('../../graphics/evpltscale{}.png'.format(kwargs.get('strg','')),dpi=500)
+	plt.close()
+
+def varplt(var1,var2,colours,lab,**kwargs):
+	plt.style.use('seaborn-paper')
+	fig,ax=plt.subplots(1,1)	
+	for i in range(1,len(var1)):		
+		ax.plot(var1[0],var1[i],c=colours[i-1][0],label=lab[i-1][0])
+		ax.plot(var2[0],var2[i],'--',c=colours[i-1][1],label=lab[i-1][1])
+	if 'title' in kwargs:
+		ax.set_title(kwargs.get('title'))
+	ax.legend()
+	ax.set_xlabel('time frame$\\ / \\ $h')
+	ax.set_ylabel('value$\\ / \\ $ $\mu$M')
+	ax.set_xlim(0,24)
+	fig.tight_layout()	
+	if 'path' in kwargs:
+		fig.savefig(kwargs['path'],dpi=kwargs.get('DPI',500))
+	else:
+		plt.show()
 	plt.close()
