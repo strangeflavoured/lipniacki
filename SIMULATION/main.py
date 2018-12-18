@@ -5,6 +5,7 @@ import simulation as sim
 import results as res
 
 def timevar(npspace):
+	#umschreiben: nur einmal simulieren, feńster nur für berechnung verschieben
 	RET=[[],[],[]]
 	for i in npspace:
 		sol=sim.solve(AA,AB,AC,kv,nftot,t=60*60*i)
