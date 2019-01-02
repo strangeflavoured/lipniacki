@@ -205,7 +205,7 @@ def threshmedian(py,pt,string):
 
 def discrnor(py,pt,**kwargs):
 	mode=kwargs.get('mode','limit')
-	(m6,m7,m12,m1,n1)=prc.evmode(mode,py)
+	(m6,m7,m12,m1,n1)=prc.evmode(mode)
 	t=[pt,pt,pt]
 	xlim=(-1,6)
 	label=['Normalisation','Discretisation','$\\vartheta$']
