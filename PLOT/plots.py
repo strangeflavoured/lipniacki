@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.gridspec import GridSpec
 
 import process as prc
 import plotset as ps
@@ -212,28 +213,28 @@ def discrnor(py,pt,**kwargs):
 	lstyle=['-','--','-.']
 	tick=(0,0.25,0.5,.75,1)
 
-	px=[prc.norm(py[6]),prc.discr(py[6],m6),ps.hline(m6,pt)]
+	px=[prc.norm(py[6]),prc.discr(py[6],m6),ps.hline(m6/np.amax(py[6]),pt)]
 	colour=['navy',c.dodgerblue,c.plum]	
 	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/NFdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)	
 		
-	px=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(m12,pt)]
+	px=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(m12/np.amax(py[12]),pt)]
 	colour=[c.green,c.lime,c.plum]	
 	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IkBdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
 	
 	lstyle[2]=':'
-	px=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(m7,pt)]
+	px=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(m7/np.amax(py[7]),pt)]
 	colour=[c.darkorange,c.gold,c.deeppink]
 	ps.figa(t,px,colour,label,xlim=xlim,title='A20',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/A20discrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
 	
 	lstyle.append('-.')
 	t.append(pt)
 	label.append('$\\vartheta_2$')
-	px=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(m1,pt),ps.hline(n1,pt)]
+	px=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(m1/np.amax(py[1]),pt),ps.hline(n1/np.amax(py[1]),pt)]
 	colour=[c.blood,'r',c.deeppink,c.plum]		
 	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IKKdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')))
 
-def evplt(dy,DY,**kwargs):
-	dt=np.arange(dy.shape[1])	
+def evplt(dy,DY,dy2,DY2,**kwargs):
+	'''dt=np.arange(dy.shape[1])	
 
 	plt.style.use('seaborn-paper')
 	plt.plot(dt,dy[1],'-',c=c.blood,label='IKKa')
@@ -248,25 +249,87 @@ def evplt(dy,DY,**kwargs):
 	plt.xlabel('time')
 	plt.tight_layout()
 	plt.savefig('../../graphics/evplttimend{}.png'.format(kwargs.get('strg','')),dpi=500)
-	plt.close()
+	plt.close()'''
 
-	plt.style.use('seaborn-darkgrid')
+	plt.style.use('seaborn-paper')
 
 	D=prc.insee(prc.ceem(np.array([DY[1],DY[6],DY[7],DY[12]])))
-	DT=np.arange(D.shape[1])
 
-	plt.plot(DT,D[0],'-',c=c.blood,label='IKKa')
-	plt.plot(DT,D[1],'--',c=c.navy,label='NF$\kappa$B')
-	plt.plot(DT,D[2],'-.',c=c.darkorange,label='A20')
-	plt.plot(DT,D[3],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
-	plt.legend()
-	plt.yticks([-1,0,1])
-	if np.amax(DT)>85:
-		plt.xlim(0,85)
-	plt.ylabel('change')
-	plt.xticks([0])
-	plt.xlabel('time')
-	plt.tight_layout()
+	D2=prc.insee(prc.ceem(np.array([DY2[1],DY2[6],DY2[7],DY2[12]])))
+	
+	if 'start' in kwargs:
+		start=kwargs.get('start')
+		D=np.append([[start[0]],[start[1]],[start[2]],[start[3]]],D,axis=1)
+		D2=np.append([[start[0]],[start[1]],[start[2]],[start[3]]],D2,axis=1)
+
+		for i,j in enumerate(D):
+			for k,l in enumerate(j):
+				D[i][k]=j[k-1]+l
+		for i,j in enumerate(D2):
+			for k,l in enumerate(j):
+				D2[i][k]=j[k-1]+l
+		for m in range(3):
+			app=[]
+			for i in range(len(D)):
+				app.append([D[i][-1]])
+			D=np.append(D,app,axis=1)
+			app2=[]
+			for i in range(len(D2)):
+				app2.append([D2[i][-1]])
+			D2=np.append(D2,app2,axis=1)
+
+	DT=np.arange(D.shape[1])
+	DT2=np.arange(D2.shape[1])
+
+	xticks=[]
+	for i in range(0,D.shape[1]-2,2):
+		xticks.append(i+0.5)
+	yticks=[]
+	for i,j in enumerate(xticks):
+		if j>len(DT)/2:
+			break
+		else:
+			yticks.append(j)
+
+	fig=plt.figure()
+	gs=GridSpec(2,2)
+	ax1 = fig.add_subplot(gs[0, :])
+	ax2=fig.add_subplot(gs[-1,:-1])
+
+	ax1.plot(DT,D[0],'-',c=c.blood,label='IKKa')
+	ax1.plot(DT,D[1],'--',c=c.navy,label='NF$\kappa$B')
+	ax1.plot(DT,D[2],'-.',c=c.darkorange,label='A20')
+	ax1.plot(DT,D[3],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
+	
+	ax1.grid(linewidth=.25,color=c.lightslategrey)
+	ax1.set_yticks([0,1,2])
+	ax1.set_xticks(xticks)
+	ax1.set_xlim(0,len(DT)-2)
+	ax1.set_ylabel('Level')	
+	ax1.set_xticklabels([])
+	ax1.set_xlabel('Time')
+	ax1.set_title('Wild-type')
+
+	ax2.plot(DT2,D2[0],'-',c=c.blood,label='IKKa')
+	ax2.plot(DT2,D2[1],'--',c=c.navy,label='NF$\kappa$B')
+	ax2.plot(DT2,D2[2],'-.',c=c.darkorange,label='A20')
+	ax2.plot(DT2,D2[3],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
+	
+	ax2.grid(linewidth=.25,color=c.lightslategrey)
+	ax2.set_yticks([0,1,2])
+	ax2.set_xticks(xticks)
+	ax2.set_ylabel('Level')	
+	ax2.set_xticklabels([])
+	ax2.set_xlabel('Time')
+	ax2.set_title('A20 KO')
+
+	trans = ax2.transAxes + ax1.transData.inverted()
+	((xmin,_),(xmax,_)) = trans.transform([[0,1],[1,1]])
+	ax2.set_xlim(xmin,xmax)
+	
+	handles, labels = ax1.get_legend_handles_labels()
+	fig.legend(handles, labels, loc=(0.61,0.18),framealpha=1,prop={'size': 10})
+	#fig.tight_layout()
 	plt.savefig('../../graphics/evpltscale{}.png'.format(kwargs.get('strg','')),dpi=500)
 	plt.close()
 
@@ -279,6 +342,7 @@ def varplt(var1,var2,colours,lab,**kwargs):
 	if 'title' in kwargs:
 		ax.set_title(kwargs.get('title'))
 	ax.legend()
+	ax.grid()
 	ax.set_xlabel('time frame$\\ / \\ $h')
 	ax.set_ylabel('value$\\ / \\ $ $\mu$M')
 	ax.set_xlim(0,24)
