@@ -284,12 +284,6 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 	xticks=[]
 	for i in range(0,D.shape[1]-2,2):
 		xticks.append(i+0.5)
-	yticks=[]
-	for i,j in enumerate(xticks):
-		if j>len(DT)/2:
-			break
-		else:
-			yticks.append(j)
 
 	fig=plt.figure()
 	gs=GridSpec(2,2)
@@ -307,7 +301,7 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 	ax1.set_xlim(0,len(DT)-2)
 	ax1.set_ylabel('Level')	
 	ax1.set_xticklabels([])
-	ax1.set_xlabel('Time')
+	ax1.set_xlabel('Time',x=1)
 	ax1.set_title('Wild-type')
 
 	ax2.plot(DT2,D2[0],'-',c=c.blood,label='IKKa')
@@ -320,7 +314,7 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 	ax2.set_xticks(xticks)
 	ax2.set_ylabel('Level')	
 	ax2.set_xticklabels([])
-	ax2.set_xlabel('Time')
+	ax2.set_xlabel('Time',x=1)
 	ax2.set_title('A20 KO')
 
 	trans = ax2.transAxes + ax1.transData.inverted()
