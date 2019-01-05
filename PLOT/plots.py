@@ -322,7 +322,7 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 	ax2.set_xlim(xmin,xmax)
 	
 	handles, labels = ax1.get_legend_handles_labels()
-	fig.legend(handles, labels, loc=(0.61,0.18),framealpha=1,prop={'size': 10})
+	fig.legend(handles, labels, loc=(0.61,0.18),framealpha=1,prop={'size': 10},edgecolor=None)
 	#fig.tight_layout()
 	plt.savefig('../../graphics/evpltscale{}.png'.format(kwargs.get('strg','')),dpi=500)
 	plt.close()
