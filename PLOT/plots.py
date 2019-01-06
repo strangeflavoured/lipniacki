@@ -267,3 +267,79 @@ def evplt(dy,DY,**kwargs):
 	plt.tight_layout()
 	plt.savefig('../../graphics/evpltscale{}.png'.format(kwargs.get('strg','')),dpi=500)
 	plt.close()
+
+def compall(pt,py,pt2,py2,*string):
+	if string:
+		strg=string[0]
+	else:
+		strg=''
+	###PLOTTING#########
+	t=[pt,pt2]
+	px=[py[6],py2[6]]
+	colour=['navy','blue']
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/NF'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt,pt2]
+	px=[py[1],py2[1]]
+	colour=[c.blood,c.darkred]
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/IKK'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt,pt2]
+	px=[py[7],py2[7]]
+	colour=[c.darkorange,c.gold]
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='A20',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/A20'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt,pt2]
+	px=[py[12],py2[12]]
+	colour=[c.green,c.limegreen]
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/IkB'+strg+'.png',DPI=500)
+	
+	###PLOTTING#########
+	t=[pt,pt2]
+	px=[py[9],py2[9]]
+	colour=[c.green,c.limegreen]
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='$\mathrm{I}\kappa\mathrm{B}_c$',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/IkBcyt'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt,pt2]
+	px=[py[10],py2[10]]
+	colour=[c.green,c.limegreen]
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='$\mathrm{I}\kappa\mathrm{B}_n$',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/IkBnuc'+strg+'.png',DPI=500)
+
+	###PLOTTING#########
+	t=[pt,pt2]
+	px=[py[11],py2[11]]
+	colour=[c.maroon,c.crimson]
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='$I\kappa B_t$',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/IkBt'+strg+'.png',DPI=500)
+	
+	t=[pt,pt2]
+	px=[py[8],py2[8]]
+	colour=[c.slategrey,c.steelblue]
+	label=['wt','A20 KO']
+	lstyle=['-','--']
+	xlim=(-1,6)
+	ps.figa(t,px,colour,label,xlim=xlim,title='$A20_t$',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/A20t'+strg+'.png',DPI=500)

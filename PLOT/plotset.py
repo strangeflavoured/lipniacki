@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+import matplotlib.lines as mlines
+from matplotlib.collections import LineCollection
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.cm as cm
 import numpy as np
@@ -112,7 +114,7 @@ def phaseplt(px,py,pt,colour,colourmap,lab,**kwargs):
 		plt.show()
 	plt.close()
 
-def phase3d(px,py,pz,a,colourmap,lab,**kwargs):
+def phase3d(px,py,pz,a,colour,colourmap,marker,lab,**kwargs):
 	ttl=kwargs.get('title','')
 	stl=kwargs.get('style','seaborn-paper')
 	xl=kwargs.get('xlabel')
@@ -124,29 +126,32 @@ def phase3d(px,py,pz,a,colourmap,lab,**kwargs):
 	plt.style.use(stl)
 
 	fig= plt.figure(frameon=False)
-	ax = plt.subplot2grid((10,1),(0,0),rowspan=9,projection='3d')	
+	ax = plt.subplot2grid((10,9),(0,0),rowspan=9,colspan=9,projection='3d')	
+	
+	RANGE=np.hstack(a)
+	Amax=np.amax(RANGE)
+	Amin=np.amin(RANGE)
+	Da=np.amax(RANGE)-Amin	
+	cmap0,cmap1=colourmap(np.linspace(0,1,2))
+	Dcmap=(cmap1[0]-cmap0[0],cmap1[1]-cmap0[1],cmap1[2]-cmap0[2],cmap1[3]-cmap0[3])
 	for i in range(0,len(px)):
-		Da=np.amax(a[i])-np.amin(a[i])
-		Amin=np.amin(a[i])
-		cmap0,cmap1=colourmap[i](np.linspace(0,1,2))
-		Dcmap=(cmap1[0]-cmap0[0],cmap1[1]-cmap0[1],cmap1[2]-cmap0[2],cmap1[3]-cmap0[3])
-		c=[]
-		for j,k in enumerate(px[i]):
-			c0=cmap0[0]+Dcmap[0]*(a[i][j]-Amin)/Da
-			c1=cmap0[1]+Dcmap[1]*(a[i][j]-Amin)/Da
-			c2=cmap0[2]+Dcmap[2]*(a[i][j]-Amin)/Da
-			c3=cmap0[3]+Dcmap[3]*(a[i][j]-Amin)/Da
-			c.append((c0,c1,c2,c3))
-		p=ax.scatter(np.flip(px[i],0),np.flip(py[i],0),np.flip(pz[i],0),'.',color=np.flip(c,0))
+		if i==0:
+			c=[]
+			for j,k in enumerate(px[i]):
+				c0=cmap0[0]+Dcmap[0]*(a[i][j]-Amin)/Da
+				c1=cmap0[1]+Dcmap[1]*(a[i][j]-Amin)/Da
+				c2=cmap0[2]+Dcmap[2]*(a[i][j]-Amin)/Da
+				c3=cmap0[3]+Dcmap[3]*(a[i][j]-Amin)/Da
+				c.append((c0,c1,c2,c3))
+			p=ax.scatter(np.flip(px[i],0),np.flip(py[i],0),np.flip(pz[i],0),marker=marker[i],color=np.flip(c,0))
+		else:
+			ax.plot(px[i],py[i],pz[i],c=colour[i-1])
 
+	ax2=plt.subplot2grid((10,9),(9,1),colspan=7)
 
-	#cbar = fig.colorbar(p, ticks=[-1, 0, 1],orientation='horizontal')
-	#cbar.ax.set_xticklabels(['Low', 'Medium', 'High'])  # horizontal colorbar
-	ax2=plt.subplot2grid((10,1),(9,0))
-
-	norm = mpl.colors.Normalize(vmin=np.amin(a[i]), vmax=np.amax(a[i]))
-	cb1 = mpl.colorbar.ColorbarBase(ax2, cmap=colourmap[i],norm=norm,orientation='horizontal')
-	cb1.set_label('A20')
+	norm = mpl.colors.Normalize(vmin=np.amin(a[i]), vmax=Amax)
+	cb1 = mpl.colorbar.ColorbarBase(ax2, cmap=colourmap,norm=norm,orientation='horizontal')
+	cb1.set_label('$A20\\ /\\ \mu M$')
 
 	if xlim:
 		ax.set_xlim(xlim)
