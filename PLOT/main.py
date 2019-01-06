@@ -7,16 +7,13 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../../simres/resultswt2018-11-23.npz')
+'''restore=load('../../simres/resultswt2019-01-03.npz')
 ##print(restore.files)
-#pt=restore['ptsim']
-#py=restore['pysim']
 pt=restore['pt']
 py=restore['py']
-
-restore2=load('../../simres/resultsKO2018-11-23.npz')
-pt2=restore2['pt']
-py2=restore2['py']
+#pt=restore['ptsim']
+#py=restore['pysim']
+>>>>>>> 44ef2c26f038cc6a608a446912a5eec440a95318
 
 ###ONE AT A TIME###
 #s.plainall(pt,py,'KO')
@@ -25,34 +22,47 @@ s.compall(pt,py,pt2,py2,'comp')
 #s.discrall(py,pt,mode='mean')
 #s.normplt(py,pt)
 #s.thresh(py,pt,'wt')
-#s.discrnor(py,pt,mode='custom2',name='')
+s.discrnor(py,pt,mode='custom2',name='')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
 #s.threshmean(py,pt,'wt')#
-#s.threshmedian(py,pt,'wt')#
+#s.threshmedian(py,pt,'wt')#'''
 
-'''x=[py[6]]#,py2[6]]
-y=[py[9]]#,py2[9]]
-z=[py[1]]#,py2[1]]
-a=[py[7]]#,py2[7]]
-t=[pt]#,pt2]
-colour=[c.navy]
-colourmap=cm.autumn
-marker=['o']#,'1']
+'''x=[py[6]]
+y=[py[9]]
+colour=['r']
+colourmap=[cm.winter]
 lab=['wt']
-strg='NF-IkB-IKK'
-ps.phase3d(x,y,z,a,colour,colourmap,marker,lab,xlabel='$NF\kappa B_n \\ /\\ \mu M$',ylabel='$(I\kappa B:NF\kappa B)_c\\ /\\ \mu M$',zlabel='$\mathrm{IKK}_a\\ /\\ \mu M$',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
-#ps.phaseplt(x,y,t,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
+strg='NF-IkB'
+ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
+>>>>>>> 44ef2c26f038cc6a608a446912a5eec440a95318
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##'''
 
-'''restore=load('../../anres/evresultscustom22018-08-03.npz')
+restore=load('../../anres/evresultswtcustom22019-01-04.npz')
 dy=restore['y']
 DY=restore['Y']
-s.evplt(dy,DY,strg='custom2')'''
 
-'''restore=load('../../anres/evresultsA20KOcustom22018-10-04.npz')
-dy=restore['y']
-DY=restore['Y']
-print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])
-s.evplt(dy,DY,strg='A20KOcustom2')'''
+restore2=load('../../anres/evresultsKOcustom22019-01-04.npz')
+dy2=restore2['y']
+DY2=restore2['Y']
+#print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])
+s.evplt(dy,DY,dy2,DY2,strg='ALLcustom2',start=[0,0,0,1])
+
+'''restore=load('../../simres/VARthreshwt2019-01-02.npz')
+restore2=load('../../simres/VARthreshKO2019-01-02.npz')
+
+mean=restore['mean']
+median=restore['median']
+Max=restore['max']
+
+mean2=restore2['mean']
+median2=restore2['median']
+Max2=restore2['max']
+
+colours=[[c.blood,c.deeppink],[c.navy,c.dodgerblue],[c.darkorange,c.gold],[c.green,c.lime]]
+lab=[['IKK, wt','IKK, A20 KO'],['NF$\kappa$B, wt','NF$\kappa$B, A20 KO'],['A20, wt','A20, A20 KO'],['I$\kappa$B, wt','I$\kappa$B, A20 KO'],]
+
+s.varplt(mean,mean2,colours,lab,path='../../graphics/varmean.png',title='Mean')
+s.varplt(median,median2,colours,lab,path='../../graphics/varmedian.png',title='Median')
+s.varplt(Max,Max2,colours,lab,path='../../graphics/varmax.png',title='Maximum/Minimum')'''

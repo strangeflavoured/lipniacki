@@ -37,9 +37,9 @@ def discr(py,**kwargs):
 				y.append(np.array(prc.discr(py[i],mod.mean24(i))))
 		elif mode=='custom2':
 			if i==1:
-				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2,mod.mean24(i))))
+				y.append(np.array(prc.discr(py[i],(mod.limit0(1)+mod.limit1(1))/2,mod.mean24(1))))
 			elif i==7:
-				y.append(np.array(prc.discr(py[i],(mod.limit0(i)+mod.limit1(i))/2)))
+				y.append(np.array(prc.discr(py[i],((mod.limit0(7)+mod.limit1(7))/2))))
 			else:
 				y.append(np.array(prc.discr(py[i],mod.mean24(i))))
 	y=np.stack(y)
