@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+from matplotlib.lines import Line2D
+from matplotlib.ticker import FormatStrFormatter, NullFormatter
 
 import process as prc
 import plotset as ps
@@ -207,32 +209,151 @@ def threshmedian(py,pt,string):
 def discrnor(py,pt,**kwargs):
 	mode=kwargs.get('mode','limit')
 	(m6,m7,m12,m1,n1)=prc.evmode(mode)
-	t=[pt,pt,pt]
+	t=[pt,pt,pt,pt]
 	xlim=(-1,6)
 	label=['Normalisation','Discretisation','$\\vartheta$']
-	lstyle=['-','--','-.']
-	tick=(0,0.25,0.5,.75,1)
+	lstyle=['-','--','-.','-.']
+	tick=[0,0.5,1]
+	mtick=[0.25,0.75]
+	xlab='t$\\ /\\ $h'
+	ylab='c$\\ / \\ $ a.u.'
+	ylab2='c / nM'
+	c1=c.plum
+	c2=c.deeppink
+	MAX6=np.amax(py[6])
+	TH6=m6/MAX6
+	MAX12=np.amax(py[12])
+	TH12=m12/MAX12
+	MAX7=np.amax(py[7])
+	TH7=m7/MAX7
+	MAX1=np.amax(py[1])
+	TH1_1=m1/MAX1
+	TH1_2=n1/MAX1
+	thresh1 = Line2D([0], [0], color=c1, lw=1,linestyle='-.')
+	thresh2 = Line2D([0], [0], color=c2, lw=1,linestyle=':')
+	l1 = Line2D([0], [0], color='black', lw=1,linestyle='-')
+	l2 = Line2D([0], [0], color='black', lw=1,linestyle='--')
 
-	px=[prc.norm(py[6]),prc.discr(py[6],m6),ps.hline(m6/np.amax(py[6]),pt)]
-	colour=['navy',c.dodgerblue,c.plum]	
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/NFdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)	
-		
-	px=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(m12/np.amax(py[12]),pt)]
-	colour=[c.green,c.lime,c.plum]	
-	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IkBdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
 	
-	lstyle[2]=':'
-	px=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(m7/np.amax(py[7]),pt)]
-	colour=[c.darkorange,c.gold,c.deeppink]
-	ps.figa(t,px,colour,label,xlim=xlim,title='A20',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/A20discrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')),DPI=500)
-	
-	lstyle.append('-.')
-	t.append(pt)
-	label.append('$\\vartheta_2$')
-	px=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(m1/np.amax(py[1]),pt),ps.hline(n1/np.amax(py[1]),pt)]
-	colour=[c.blood,'r',c.deeppink,c.plum]		
-	ps.figa(t,px,colour,label,xlim=xlim,title='IKKa',yticks=tick,linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ a.u.',label=True,path='../../graphics/IKKdiscrnor{}{}.png'.format(kwargs.get('name',''),kwargs.get('mode','mean')))
+	plt.style.use('seaborn-paper')
+	fig, ((ax1,ax2),(ax3,ax4))=plt.subplots(2,2)
 
+	px1=[prc.norm(py[6]),prc.discr(py[6],m6),ps.hline(TH6,pt)]
+	colour1=['navy',c.dodgerblue,c1]	
+	for i,j in enumerate(px1):
+		ax1.plot(t[i]-101,j,c=colour1[i],linestyle=lstyle[i])
+	ax1.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+	ax1.yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+	ax1.set_title('NF$\kappa$B')
+	ax1.set_xlim(xlim)
+	ax1.grid(c='gray', which='both',linewidth=0.2)
+	ax1.set_yticks(tick)
+	ax1.set_yticks(mtick, minor=True)
+	ax1.set_xlabel(xlab)
+	ax1.set_ylabel(ylab)
+	#ax1.legend([thresh1],['$\\vartheta\hat{=}87.3$ nM'])
+	ax12=ax1.twinx()
+	ax12.yaxis.tick_right()
+	TH=ax12.transData.inverted().transform(ax1.transData.transform((0,TH6)))[1]
+	NUL=ax12.transData.inverted().transform(ax1.transData.transform((0,0)))[1]
+	ONE=ax12.transData.inverted().transform(ax1.transData.transform((1,1)))[1]
+	ax12.set_yticks([NUL,TH,ONE,])
+	ax12.set_yticklabels([0,87.3,np.around(MAX6*1000,decimals=1)])
+	ax12.set_ylabel(ylab2,rotation=0)
+	ax12.yaxis.set_label_coords(1.15,.8)
+
+	px2=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(TH12,pt)]
+	colour2=[c.green,c.lime,c1]
+	for i,j in enumerate(px2):
+		ax2.plot(t[i]-101,j,c=colour2[i],linestyle=lstyle[i])
+	ax2.set_xlim(xlim)
+	ax2.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+	ax2.yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+	ax2.set_title('I$\kappa$B')
+	ax2.set_xlim(xlim)
+	ax2.grid(c='gray', which='both',linewidth=0.2)
+	ax2.set_yticks(tick)
+	ax2.set_yticks(mtick, minor=True)
+	ax2.set_xlabel(xlab)
+	ax2.set_ylabel(ylab)
+	ax22=ax2.twinx()
+	ax22.yaxis.tick_right()
+	TH=ax22.transData.inverted().transform(ax2.transData.transform((0,TH12)))[1]
+	NUL=ax22.transData.inverted().transform(ax2.transData.transform((0,0)))[1]
+	ONE=ax22.transData.inverted().transform(ax2.transData.transform((1,1)))[1]
+	ax22.set_yticks([NUL,TH,ONE,])
+	ax22.set_yticklabels([0,36.5,np.around(MAX12*1000,decimals=1)])
+	ax22.set_ylabel(ylab2,rotation=0)
+	ax22.yaxis.set_label_coords(1.15,.8)
+	
+	lstyle[-2]=':'
+	px3=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(TH7,pt)]
+	colour3=[c.darkorange,c.gold,c2]
+	for i,j in enumerate(px3):
+		ax3.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
+	ax3.set_xlim(xlim)
+	ax3.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+	ax3.yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+	ax3.set_title('A20')
+	ax3.set_xlim(xlim)
+	ax3.grid(c='gray', which='both',linewidth=0.2)
+	ax3.set_yticks(tick)
+	ax3.set_yticks(mtick, minor=True)
+	ax3.set_xlabel(xlab)
+	ax3.set_ylabel(ylab)
+	#ax3.legend([thresh2],['$\\vartheta\hat{=}89.7$'])
+	ax32=ax3.twinx()
+	ax32.yaxis.tick_right()
+	TH=ax32.transData.inverted().transform(ax3.transData.transform((0,TH7)))[1]
+	NUL=ax32.transData.inverted().transform(ax3.transData.transform((0,0)))[1]
+	ONE=ax32.transData.inverted().transform(ax3.transData.transform((1,1)))[1]
+	ax32.set_yticks([NUL,TH,ONE,])
+	ax32.set_yticklabels([0,89.7,np.around(MAX7*1000,decimals=1)])
+	ax32.set_ylabel(ylab2,rotation=0)
+	ax32.yaxis.set_label_coords(1.15,.8)
+	
+	px4=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(TH1_1,pt),ps.hline(TH1_2,pt)]
+	colour4=[c.blood,'r',c2,c1]
+	for i,j in enumerate(px4):
+		ax4.plot(t[i]-101,j,c=colour4[i],linestyle=lstyle[i])
+	ax4.set_xlim(xlim)
+	ax4.yaxis.set_major_formatter(FormatStrFormatter('%.1f'))
+	ax4.yaxis.set_minor_formatter(FormatStrFormatter('%.2f'))
+	ax4.set_title('IKK')
+	ax4.set_xlim(xlim)
+	ax4.grid(c='gray', which='both',linewidth=0.2)
+	ax4.set_yticks(tick)
+	ax4.set_yticks(mtick, minor=True)
+	ax4.set_xlabel(xlab)
+	ax4.set_ylabel(ylab)
+	#ax4.legend([thresh2,thresh1],['$\\vartheta_1\hat{=}2.3$','$\\vartheta_2\hat{=}40.4$'])
+	ax42=ax4.twinx()
+	ax42.yaxis.tick_right()
+	TH1=ax42.transData.inverted().transform(ax4.transData.transform((0,TH1_1)))[1]
+	TH2=ax42.transData.inverted().transform(ax4.transData.transform((0,TH1_2)))[1]
+	NUL=ax42.transData.inverted().transform(ax4.transData.transform((0,0)))[1]
+	ONE=ax42.transData.inverted().transform(ax4.transData.transform((1,1)))[1]
+	ax42.set_yticks([NUL,TH1,TH2,ONE,])
+	ax42.set_yticklabels([0,2.3,40.4,np.around(MAX1*1000,decimals=1)])
+	ax42.yaxis.get_ticklabels()[0].set_verticalalignment('top')
+	ax42.yaxis.get_ticklabels()[1].set_verticalalignment('center')
+	ax42.yaxis.get_ticklabels()[2].set_verticalalignment('bottom')
+	ax42.set_ylabel(ylab2,rotation=0)
+	ax42.yaxis.set_label_coords(1.15,.8)
+
+	handles=[l1,l2,thresh1,thresh2]
+	labels=['ODE Simulation','Discretisation','$\\vartheta_\mathrm{mean}$','$\\vartheta_\mathrm{half}$']
+
+	for i in [ax1,ax12,ax2,ax22,ax3,ax32,ax4,ax42]:
+		plt.setp(i.get_yticklabels(which='both'), fontsize=7)
+		plt.setp(i.get_xticklabels(which='both'), fontsize=7)
+
+	fig.legend(handles, labels, 'center',fontsize=7,framealpha=0,prop={'size': 8},edgecolor=None)
+
+	fig.tight_layout()
+	plt.savefig('../../graphics/discrnor{}{}.png'.format(kwargs.get('strg',''),mode),dpi=500)
+	plt.close()
+	
 def evplt(dy,DY,dy2,DY2,**kwargs):
 	'''dt=np.arange(dy.shape[1])	
 
@@ -301,8 +422,8 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 	ax1.set_xlim(0,len(DT)-2)
 	ax1.set_ylabel('Level')	
 	ax1.set_xticklabels([])
-	ax1.set_xlabel('Time',x=1)
-	ax1.set_title('Wild-type',x=0)
+	ax1.set_xlabel('Time',x=0.95)
+	xtitle=ax1.set_title('$\\mathbf{(a)}$',x=0.05)
 
 	ax2.plot(DT2,D2[0],'-',c=c.blood,label='IKKa')
 	ax2.plot(DT2,D2[1],'--',c=c.navy,label='NF$\kappa$B')
@@ -314,8 +435,8 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 	ax2.set_xticks(xticks)
 	ax2.set_ylabel('Level')	
 	ax2.set_xticklabels([])
-	ax2.set_xlabel('Time',x=1)
-	ax2.set_title('A20 KO',x=0)
+	ax2.set_xlabel('Time',x=.91)
+	ax2.set_title('$\\mathbf{(b)}$',x=ax2.transAxes.inverted().transform(ax1.transAxes.transform(xtitle.get_position()))[0])
 
 	trans = ax2.transAxes + ax1.transData.inverted()
 	((xmin,_),(xmax,_)) = trans.transform([[0,1],[1,1]])
