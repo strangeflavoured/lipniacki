@@ -14,14 +14,22 @@ py=restore['py']
 #pt=restore['ptsim']
 #py=restore['pysim']
 
+restore2=load('../../simres/resultsA20KO2019-01-03.npz')
+##print(restore.files)
+pt2=restore2['pt']
+py2=restore2['py']
+#pt=restore['ptsim']
+#py=restore['pysim']
+
+
 ###ONE AT A TIME###
 #s.plainall(pt,py,'KO')
-#s.compall(pt,py,pt2,py2,'comp')
-#s.discreet(py,pt,mode='mean')
-#s.discrall(py,pt,mode='mean')
-#s.normplt(py,pt)
-#s.thresh(py,pt,'wt')
-s.discrnor(py,pt,mode='custom2',name='')
+#s.compall(pt,py,pt2,py2)
+##s.discreet(py,pt,mode='mean')
+##s.discrall(py,pt,mode='mean')
+##s.normplt(py,pt)
+##s.thresh(py,pt,'wt')
+#s.discrnor(py,pt,mode='custom2',name='')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
@@ -37,7 +45,7 @@ strg='NF-IkB'
 ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##'''
 
-'''restore=load('../../anres/evresultswtcustom22019-01-04.npz')
+restore=load('../../anres/evresultswtcustom22019-01-04.npz')
 dy=restore['y']
 DY=restore['Y']
 
@@ -45,7 +53,7 @@ restore2=load('../../anres/evresultsKOcustom22019-01-04.npz')
 dy2=restore2['y']
 DY2=restore2['Y']
 #print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])
-s.evplt(dy,DY,dy2,DY2,strg='ALLcustom2',start=[0,0,0,1])'''
+s.evplt(dy,DY,dy2,DY2,strg='ALLcustom2',start=[0,0,0,1])
 
 '''restore=load('../../simres/VARthreshwt2019-01-02.npz')
 restore2=load('../../simres/VARthreshKO2019-01-02.npz')
