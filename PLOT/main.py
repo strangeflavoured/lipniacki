@@ -7,22 +7,29 @@ import colours as c
 import plots as s
 from results import load
 
-'''restore=load('../../simres/resultswt2019-01-03.npz')
+restore=load('../../simres/resultswt2019-01-03.npz')
 ##print(restore.files)
 pt=restore['pt']
 py=restore['py']
 #pt=restore['ptsim']
 #py=restore['pysim']
->>>>>>> 44ef2c26f038cc6a608a446912a5eec440a95318
+
+restore2=load('../../simres/resultsA20KO2019-01-03.npz')
+##print(restore.files)
+pt2=restore2['pt']
+py2=restore2['py']
+#pt=restore['ptsim']
+#py=restore['pysim']
+
 
 ###ONE AT A TIME###
 #s.plainall(pt,py,'KO')
-s.compall(pt,py,pt2,py2,'comp')
-#s.discreet(py,pt,mode='mean')
-#s.discrall(py,pt,mode='mean')
-#s.normplt(py,pt)
-#s.thresh(py,pt,'wt')
-s.discrnor(py,pt,mode='custom2',name='')
+#s.compall(pt,py,pt2,py2)
+##s.discreet(py,pt,mode='mean')
+##s.discrall(py,pt,mode='mean')
+##s.normplt(py,pt)
+##s.thresh(py,pt,'wt')
+#s.discrnor(py,pt,mode='custom2',name='')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
@@ -36,7 +43,6 @@ colourmap=[cm.winter]
 lab=['wt']
 strg='NF-IkB'
 ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',path='../../graphics/phaseplot'+strg+'.png',DPI=500)
->>>>>>> 44ef2c26f038cc6a608a446912a5eec440a95318
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##'''
 
 restore=load('../../anres/evresultswtcustom22019-01-06.npz')
@@ -66,3 +72,7 @@ lab=[['IKK, wt','IKK, A20 KO'],['NF$\kappa$B, wt','NF$\kappa$B, A20 KO'],['A20, 
 s.varplt(mean,mean2,colours,lab,path='../../graphics/varmean.png',title='Mean')
 s.varplt(median,median2,colours,lab,path='../../graphics/varmedian.png',title='Median')
 s.varplt(Max,Max2,colours,lab,path='../../graphics/varmax.png',title='Maximum/Minimum')'''
+
+'''###############################################################
+phase3d plot nfkb, ikb:nfkb, ikk
+###############################################################'''
