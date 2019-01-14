@@ -46,10 +46,13 @@ ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',pa
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##'''
 
 '''restore=load('../../anres/evresultswtcustom22019-01-04.npz')
+=======
+restore=load('../../anres/evresultswtcustom22019-01-06.npz')
+>>>>>>> 2070a33d9beabb320569c5dfcc0642fe109d3ef1
 dy=restore['y']
 DY=restore['Y']
 
-restore2=load('../../anres/evresultsKOcustom22019-01-04.npz')
+restore2=load('../../anres/evresultsKOcustom22019-01-06.npz')
 dy2=restore2['y']
 DY2=restore2['Y']
 #print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])

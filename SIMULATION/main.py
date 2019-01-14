@@ -34,7 +34,7 @@ for i,j in enumerate(sol[2].y):
 		print(np.amax(j[100:]))
 	else:
 		print(np.amax(j))'''
-		
+
 sol=sim.solve(AA,AB,AC,kv,nftot,t=60*60*24)#kwargs: TR, t
 pt=sol[0]
 py=sol[1]
