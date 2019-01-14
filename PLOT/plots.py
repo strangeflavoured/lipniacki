@@ -443,47 +443,38 @@ def compall(pt,py,pt2,py2,*string):
 	[c.green,c.limegreen],
 	[c.darkorange,c.gold],
 	[c.blood,c.darkred]]
-	label=['wt','A20 KO']
+	labels=['wt','A20 KO']
 	lstyle=['-','--']
 	xlim=(-1,6)
 	xlabel='t$\\ /\\ $h'
 	ylabel='c / nM'
 	vertal='baseline'
+	titles=['NF$\kappa$B','I$\kappa$B:NF$\kappa$B','A20','IKK']
 
 	plt.style.use('seaborn-paper')
 	fig, ((ax1,ax2),(ax3,ax4))=plt.subplots(2,2)
 
-	for i,j in enumerate(px[0]):
-		ax1.plot(t[i]-101,j*1000,c=colour[0][i],linestyle=lstyle[i],label=label[i])
-	ax1.set_title('NF$\kappa$B')
-
-	for i,j in enumerate(px[1]):
-		ax2.plot(t[i]-101,j*1000,c=colour[1][i],linestyle=lstyle[i],label=label[i])
-	ax2.set_title('I$\kappa$B:NF$\kappa$B')
-
-	for i,j in enumerate(px[2]):
-		ax3.plot(t[i]-101,j*1000,c=colour[2][i],linestyle=lstyle[i],label=label[i])
-	ax3.set_title('A20')
-
-	for i,j in enumerate(px[3]):
-		ax4.plot(t[i]-101,j*1000,c=colour[3][i],linestyle=lstyle[i],label=label[i])
-	ax4.set_title('IKK')
-
+	AX=0
 	for ax in fig.axes:
+		for i in range(len(px)):
+			if i==AX:
+				for j,k in enumerate(px[i]):
+					ax.plot(t[j]-101,k*1000,c=colour[i][j],linestyle=lstyle[j])
+				ax.set_title(titles[i])
 		ax.set_xlim(xlim)
 		ax.tick_params(direction='in')
 		ax.set_ylabel(ylabel)
 		ax.set_xlabel(xlabel)
-		ax.set_xticks([0],minor=True)
-		ax.set_xticklabels(['*'],minor=True,fontsize=10,fontweight='bold',color='r',verticalalignment=vertal)
-
+		ax.scatter(0,1, s=20, marker=7, color="red",
+           transform=ax.get_xaxis_transform(), clip_on=False, zorder=3)
+		AX+=1	
 
 	handles=[Line2D([0], [0], color='black', lw=1,linestyle='-'),
 	Line2D([0], [0], color='black', lw=1,linestyle='--')]
-	labels=['wt','A20-/-']
 
 	fig.legend(handles, labels, 'center',fontsize=7,framealpha=0,prop={'size': 8},edgecolor=None)
 
+	fig.align_ylabels()
 	fig.tight_layout()
 	plt.savefig('../../graphics/compall{}.png'.format(strg),dpi=500)
 	plt.close()
