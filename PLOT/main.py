@@ -24,12 +24,13 @@ py2=restore2['py']
 
 ###ONE AT A TIME###
 #s.plainall(pt,py,'KO')
-s.compall(pt,py,pt2,py2)
+#s.compall(pt,py,pt2,py2)
 ##s.discreet(py,pt,mode='mean')
 ##s.discrall(py,pt,mode='mean')
 ##s.normplt(py,pt)
 ##s.thresh(py,pt,'wt')
-#s.discrnor(py,pt,mode='custom2',name='')
+#s.discrnor(py,pt,mode='custom',name='')
+s.discr(py,pt,mode='custom2',strg='A20')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
@@ -46,9 +47,6 @@ ps.phaseplt(x,y,colour,colourmap,lab,xlabel='NF$\kappa$B',ylabel='I$\kappa$B',pa
 ##kwargs: title,style,xlabel,ylabel,label,xlim,path,DPI##'''
 
 '''restore=load('../../anres/evresultswtcustom22019-01-04.npz')
-=======
-restore=load('../../anres/evresultswtcustom22019-01-06.npz')
->>>>>>> 2070a33d9beabb320569c5dfcc0642fe109d3ef1
 dy=restore['y']
 DY=restore['Y']
 

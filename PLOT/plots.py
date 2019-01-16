@@ -211,6 +211,57 @@ def threshmedian(py,pt,string):
 	colour=[c.green,'gray']
 	ps.figa(t,px,colour,label,xlim=xlim,title='NF$\kappa$B:I$\kappa$B',linestyle=lstyle,xlabel='t$\\ /\\ $h',ylabel='c$\\ / \\ $ $\mu$M',label=True,path='../../graphics/IkB'+string+'threshmedian.png',DPI=500)	
 
+def discr(py,pt,**kwargs):
+	mode=kwargs.get('mode','limit')
+	(m6,m7,m12,m1,n1)=prc.evmode(mode)
+	t=[pt,pt,pt,pt]
+	xlim=(-1,6)
+	label=['Simulation','Discretisation','$\\vartheta$']
+	lstyle=['-','--',':']
+	tick=[0,0.5,1]
+	xlab='t / h'
+	ylab='c / nM'
+	ylab2='Activity'	
+	MAX7=np.amax(py[7])
+	TH7=m7/MAX7
+	
+	plt.style.use('seaborn-paper')
+	fig, ax=plt.subplots(1,1)	
+	
+	px3=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(TH7,pt)]
+	colour3=[c.darkorange,c.gold,c.deeppink]
+	for i,j in enumerate(px3):
+		ax.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i],label=label[i])
+	ax.set_title('A20')
+	ax.set_xlim(xlim)	
+	ax.set_yticks(tick)
+	ax.set_yticks(TH7,minor=True)
+	ax.set_yticklabels([0,np.around(MAX7*500,decimals=1),np.around(MAX7*1000,decimals=1)])
+	ax.set_yticklabels([np.around(MAX7*TH7[0]*1000,decimals=1)],minor=True)
+	ax.yaxis.get_ticklabels(minor=True)[0].set_verticalalignment('top')
+	ax.yaxis.get_ticklabels()[1].set_verticalalignment('baseline')
+	ax.set_xlabel(xlab)
+	ax.set_ylabel(ylab)
+	ax.legend(loc=(0.7,0.2),framealpha=0,fontsize=6,prop={'size': 7},edgecolor=None)
+
+	ax2=ax.twinx()
+	ax2.yaxis.tick_right()	
+	NUL=ax2.transData.inverted().transform(ax.transData.transform((0,0)))[1]
+	ONE=ax2.transData.inverted().transform(ax.transData.transform((1,1)))[1]
+	ax2.set_yticks([NUL,ONE])
+	ax2.set_yticklabels([0,1])
+	ax2.set_ylabel(ylab2)	
+
+	for ax in fig.axes:
+		plt.setp(ax.get_yticklabels(which='both'), fontsize=7)
+		plt.setp(ax.get_xticklabels(which='both'), fontsize=7)
+		ax.tick_params(direction='in')
+		ax.yaxis.set_zorder(3)
+
+	fig.tight_layout()
+	plt.savefig('../../graphics/discr{}{}.png'.format(kwargs.get('strg',''),mode),dpi=500)
+	plt.close()
+
 def discrnor(py,pt,**kwargs):
 	mode=kwargs.get('mode','limit')
 	(m6,m7,m12,m1,n1)=prc.evmode(mode)
@@ -258,10 +309,9 @@ def discrnor(py,pt,**kwargs):
 	ax12=ax1.twinx()
 	ax12.yaxis.tick_right()	
 	NUL=ax12.transData.inverted().transform(ax1.transData.transform((0,0)))[1]
-	HALF=ax12.transData.inverted().transform(ax1.transData.transform((0,0.5)))[1]
 	ONE=ax12.transData.inverted().transform(ax1.transData.transform((1,1)))[1]
-	ax12.set_yticks([NUL,HALF,ONE])	
-	ax12.set_yticklabels([0,0.5,1])
+	ax12.set_yticks([NUL,ONE])	
+	ax12.set_yticklabels([0,1])
 	ax12.set_ylabel(ylab2)
 
 	px2=[prc.norm(py[12]),prc.discr(py[12],m12),ps.hline(TH12,pt)]
@@ -279,10 +329,9 @@ def discrnor(py,pt,**kwargs):
 	ax22=ax2.twinx()
 	ax22.yaxis.tick_right()	
 	NUL=ax22.transData.inverted().transform(ax2.transData.transform((0,0)))[1]
-	HALF=ax22.transData.inverted().transform(ax2.transData.transform((0,0.5)))[1]
 	ONE=ax22.transData.inverted().transform(ax2.transData.transform((1,1)))[1]
-	ax22.set_yticks([NUL,HALF,ONE])
-	ax22.set_yticklabels([0,0.5,1])
+	ax22.set_yticks([NUL,ONE])
+	ax22.set_yticklabels([0,1])
 	ax22.set_ylabel(ylab2)
 	
 	lstyle[-2]=':'
@@ -303,10 +352,9 @@ def discrnor(py,pt,**kwargs):
 	ax32=ax3.twinx()
 	ax32.yaxis.tick_right()	
 	NUL=ax32.transData.inverted().transform(ax3.transData.transform((0,0)))[1]
-	HALF=ax32.transData.inverted().transform(ax3.transData.transform((0,0.5)))[1]
 	ONE=ax32.transData.inverted().transform(ax3.transData.transform((1,1)))[1]
-	ax32.set_yticks([NUL,HALF,ONE])
-	ax32.set_yticklabels([0,0.5,1])
+	ax32.set_yticks([NUL,ONE])
+	ax32.set_yticklabels([0,1])
 	ax32.set_ylabel(ylab2)
 	
 	px4=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(TH1_1,pt),ps.hline(TH1_2,pt)]
@@ -315,9 +363,9 @@ def discrnor(py,pt,**kwargs):
 		ax4.plot(t[i]-101,j,c=colour4[i],linestyle=lstyle[i])
 	ax4.set_title('IKK')
 	ax4.set_xlim(xlim)	
-	ax4.set_yticks(tick[1:])
+	ax4.set_yticks(tick)
 	ax4.set_yticks(np.append(TH1_1,TH1_2),minor=True)
-	ax4.set_yticklabels([np.around(MAX1*500,decimals=1),np.around(MAX1*1000,decimals=1)])
+	ax4.set_yticklabels(['',np.around(MAX1*500,decimals=1),np.around(MAX1*1000,decimals=1)])
 	ax4.set_yticklabels([np.around(MAX1*TH1_1[0]*1000,decimals=1),np.around(MAX1*TH1_2[0]*1000,decimals=1)],minor=True)
 	ax4.set_xlabel(xlab)
 	ax4.set_ylabel(ylab)
@@ -332,18 +380,19 @@ def discrnor(py,pt,**kwargs):
 	'''turn off minor ticks:
 	for tic in ax42.yaxis.get_minor_ticks():
 		tic.tick1On = tic.tick2On = False'''
-	ax42.set_yticklabels([0,0.5,1])
+	ax42.set_yticklabels([0,1,2])
 	ax42.set_ylabel(ylab2)	
 
 	handles=[l1,l2,thresh1,thresh2]
-	labels=['Simulation','Discretised','$\\vartheta_\mathrm{mean}$','$\\vartheta_\mathrm{half}$']
+	labels=['Simulation','Discretisation','$\\vartheta_\mathrm{mean}$','$\\vartheta_\mathrm{half}$']
 
 	for ax in fig.axes:
 		plt.setp(ax.get_yticklabels(which='both'), fontsize=7)
 		plt.setp(ax.get_xticklabels(which='both'), fontsize=7)
 		ax.tick_params(direction='in')
+		ax.yaxis.set_zorder(3)
 
-	fig.legend(handles, labels, 'center',fontsize=6,framealpha=0,prop={'size': 7},edgecolor=None)
+	fig.legend(handles, labels, loc=(0.45,0.45),fontsize=6,framealpha=0,prop={'size': 7},edgecolor=None)
 
 	fig.tight_layout()
 	plt.savefig('../../graphics/discrnor{}{}.png'.format(kwargs.get('strg',''),mode),dpi=500)

@@ -23,7 +23,9 @@
 #    #############################################################
 import numpy as np
 
-def model(par,TR):
+def model(par,TR,**kwargs):
+
+    ikk=kwargs.get('ikk',False)
 
     kprod=par[0]
     kdeg1=par[1]
@@ -64,7 +66,10 @@ def model(par,TR):
         dy[0]= kprod - kdeg1*y[0] - TR*k1*y[0]              
 
         #free active IKK
-        dy[1]= TR*k1*y[0] - k3*y[1] - TR*k2*y[1]*y[7] - kdeg2*y[1] - a2*y[1]*y[9] + t1*y[3] - a3*y[1]*y[12] + t2*y[4] 
+        if ikk:
+            dy[1]=0
+        else:
+            dy[1]= TR*k1*y[0] - k3*y[1] - TR*k2*y[1]*y[7] - kdeg2*y[1] - a2*y[1]*y[9] + t1*y[3] - a3*y[1]*y[12] + t2*y[4] 
 
         #inactive IKK 
         dy[2]= k3*y[1] + TR*k2*y[1]*y[7] - kdeg3*y[2]   

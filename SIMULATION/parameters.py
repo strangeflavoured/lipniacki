@@ -18,7 +18,7 @@ def para(AA,AB,AC,kv):
 	c5=0.0003             #0.0003  A20 degradation rate, IkBa *5
 	
 	################# IKK ####################################################
-	k1=AC*0.0025             #0.0025 activation caused by TNF, FIT
+	k1=AC*0.0025          #0.0025 activation caused by TNF, FIT
 	k2=0.1                #0.1  inactivation caused by A20, FIT
 	k3=0.0015             #0.0015  spontanouous inactivation,  FIT
 	kprod=0.000025        #0.000025  IKKn production rate
