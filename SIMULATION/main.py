@@ -35,7 +35,7 @@ for i,j in enumerate(sol[2].y):
 	else:
 		print(np.amax(j))'''
 
-'''sol=sim.solve(AA,AB,AC,kv,nftot,t=60*60*24)#kwargs: TR, t
+'''sol=sim.solve(AA,AB,AC,kv,nftot,t=60*60*24,reverse=True)#kwargs: TR, t
 pt=sol[0]
 py=sol[1]
 sol1=sol[2]
@@ -46,11 +46,11 @@ t0=sol[3]
 #SUM=sim.varkv(AA,AB,AC,nftot,time=60*60*24,itr=itr,pvar=6)
 
 ###SAVING###########
-res.dump('../../simres/resultswt',pt=pt,py=py,ptsim=sol1.t,pysim=sol1.y,t0=t0)
-res.save('../../simres/steadystatewt', mode='wt',tend=pt[-1]-101, yend=py[:,-1],t0=t0)
+res.dump('../../simres/resultsREV',pt=pt,py=py,ptsim=sol1.t,pysim=sol1.y,t0=t0)
+#res.save('../../simres/steadystatewt', mode='wt',tend=pt[-1]-101, yend=py[:,-1],t0=t0)
 #print(np.median(sol[2].y[1,:]),np.median(sol[2].y[6,:]),np.median(sol[2].y[7,:]),np.median(sol[2].y[12,:]))#KNAI'''
 
-sol=sim.ikkKO(AA,AB,AC,kv,nftot,start=0,ikk=0)
+sol=sim.ikkKO(AA,AB,AC,kv,nftot,start=1.8,ikk=0)
 '''sol3=sol[-2]
 
 pt=sol[0]
