@@ -78,16 +78,22 @@ def evmode(mode):
 		n1=(mod.limit0(1)+mod.pymax(1))/2
 	elif mode=='custom':
 		m6=mod.mean24(6)
-		m7=(mod.limit0(7)/2)+0.5
+		m7=mod.mean24(7)
 		m12=mod.mean24(12)
 		m1=(mod.limit0(1)+mod.limit1(1))/2
-		n1=(mod.limit0(1)+mod.limitKO(1))/2
+		n1=mod.mean24(1)
 	elif mode=='custom2':
 		m6=mod.mean24(6)
 		m7=(mod.limit0(7)+mod.limit1(7))/2
 		m12=mod.mean24(12)
 		m1=(mod.limit0(1)+mod.limit1(1))/2
 		n1=mod.mean24(1)
+	elif mode=='custom3':
+		m6=mod.median(6)
+		m7=mod.median(7)
+		m12=mod.median(12)
+		m1=(mod.limit0(1)+mod.limit1(1))/2
+		n1=mod.median(1)
 	return (m6,m7,m12,m1,n1)
 
 def ceem(arr):

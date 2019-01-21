@@ -285,9 +285,9 @@ def discrnor(py,pt,**kwargs):
 	ax22.set_yticklabels([0,0.5,1])
 	ax22.set_ylabel(ylab2)
 	
-	lstyle[-2]=':'
+	#lstyle[-2]=':'
 	px3=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(TH7,pt)]
-	colour3=[c.darkorange,c.gold,c2]
+	colour3=[c.darkorange,c.gold,c1]
 	for i,j in enumerate(px3):
 		ax3.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
 	ax3.set_title('A20')
@@ -309,6 +309,7 @@ def discrnor(py,pt,**kwargs):
 	ax32.set_yticklabels([0,0.5,1])
 	ax32.set_ylabel(ylab2)
 	
+	lstyle[-2]=':'
 	px4=[prc.norm(py[1]),prc.discr(py[1],m1,n1),ps.hline(TH1_1,pt),ps.hline(TH1_2,pt)]
 	colour4=[c.blood,'r',c2,c1]
 	for i,j in enumerate(px4):
@@ -324,7 +325,7 @@ def discrnor(py,pt,**kwargs):
 	ax4.yaxis.get_ticklabels(minor=True)[0].set_verticalalignment('top')
 	ax4.yaxis.get_ticklabels(minor=True)[1].set_verticalalignment('baseline')
 	ax42=ax4.twinx()
-	ax42.yaxis.tick_right()	
+	ax42.yaxis.tick_right()
 	NUL=ax42.transData.inverted().transform(ax4.transData.transform((0,0)))[1]
 	HALF=ax42.transData.inverted().transform(ax4.transData.transform((0,0.5)))[1]
 	ONE=ax42.transData.inverted().transform(ax4.transData.transform((1,1)))[1]
@@ -349,18 +350,19 @@ def discrnor(py,pt,**kwargs):
 	plt.savefig('../../graphics/discrnor{}{}.png'.format(kwargs.get('strg',''),mode),dpi=500)
 	plt.close()
 	
-def evplt(dy,DY,dy2,DY2,**kwargs):
+def evplt(DY,DY2,DY3,**kwargs):
 
 	plt.style.use('seaborn-paper')
 
 	D=prc.insee(prc.ceem(np.array([DY[1],DY[6],DY[7],DY[12]])))
-
 	D2=prc.insee(prc.ceem(np.array([DY2[1],DY2[6],DY2[7],DY2[12]])))
+	D3=prc.insee(prc.ceem(np.array([DY3[1],DY3[6],DY3[7],DY3[12]])))
 	
 	if 'start' in kwargs:
 		start=kwargs.get('start')
 		D=np.append([[start[0]],[start[1]],[start[2]],[start[3]]],D,axis=1)
 		D2=np.append([[start[0]],[start[1]],[start[2]],[start[3]]],D2,axis=1)
+		D3=np.append([[start[0]],[start[1]],[start[2]],[start[3]]],D3,axis=1)
 
 		for i,j in enumerate(D):
 			for k,l in enumerate(j):
@@ -368,6 +370,9 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 		for i,j in enumerate(D2):
 			for k,l in enumerate(j):
 				D2[i][k]=j[k-1]+l
+		for i,j in enumerate(D3):
+			for k,l in enumerate(j):
+				D3[i][k]=j[k-1]+l
 		for m in range(3):
 			app=[]
 			for i in range(len(D)):
@@ -377,31 +382,37 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 			for i in range(len(D2)):
 				app2.append([D2[i][-1]])
 			D2=np.append(D2,app2,axis=1)
+			app3=[]
+			for i in range(len(D3)):
+				app3.append([D3[i][-1]])
+			D3=np.append(D3,app3,axis=1)
 
 	DT=np.arange(D.shape[1])
 	DT2=np.arange(D2.shape[1])
+	DT3=np.arange(D3.shape[1])
 
 	xticks=[]
 	for i in range(0,D.shape[1]-2,2):
 		xticks.append(i+0.5)
 
 	fig=plt.figure()
-	gs=GridSpec(2,2)
-	ax1 = fig.add_subplot(gs[0, :])
-	ax2=fig.add_subplot(gs[-1,:-1])
+	gs=GridSpec(2,3,hspace=0.3)
+	ax1 = fig.add_subplot(gs[0, :-1])
+	ax2=fig.add_subplot(gs[1,:-1])
+	ax3=fig.add_subplot(gs[1,-1])
 
-	ax1.plot(DT,D[0],'-',c=c.blood,label='IKKa')
+	ax1.plot(DT,D[0],'-',c=c.blood,label='IKK')
 	ax1.plot(DT,D[1],'--',c=c.navy,label='NF$\kappa$B')
 	ax1.plot(DT,D[2],'-.',c=c.darkorange,label='A20')
-	ax1.plot(DT,D[3],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
+	ax1.plot(DT,D[3],':',c=c.green,label='I$\kappa$B')
 	
 	#ax1.grid(linewidth=.25,color=c.lightslategrey)
 	ax1.set_yticks([0,1,2])
 	ax1.set_xticks(xticks)
-	ax1.set_xlim(0,len(DT)-2)
+	ax1.set_xlim(0,30)
 	ax1.set_ylabel('Level')	
 	ax1.set_xticklabels([])
-	ax1.set_xlabel('Time (Steps)',x=0.91)
+	ax1.set_xlabel('Time (Steps)',x=0.85)
 	xtitle=ax1.set_title('$\\mathbf{(a)}$',x=0.05)
 
 	ax2.plot(DT2,D2[0],'-',c=c.blood,label='IKKa')
@@ -412,17 +423,34 @@ def evplt(dy,DY,dy2,DY2,**kwargs):
 	#ax2.grid(linewidth=.25,color=c.lightslategrey)
 	ax2.set_yticks([0,1,2])
 	ax2.set_xticks(xticks)
+	ax2.set_xlim(0,30)
 	ax2.set_ylabel('Level')	
 	ax2.set_xticklabels([])
-	ax2.set_xlabel('Time (Steps)',x=.8)
-	ax2.set_title('$\\mathbf{(b)}$',x=ax2.transAxes.inverted().transform(ax1.transAxes.transform(xtitle.get_position()))[0])
+	ax2.set_xlabel('Time (Steps)',x=0.85)
+	xtitle=ax2.set_title('$\\mathbf{(b)}$',x=0.05)
 
-	trans = ax2.transAxes + ax1.transData.inverted()
+	ax3.plot(DT3,D3[0],'-',c=c.blood,label='IKKa')
+	ax3.plot(DT3,D3[1],'--',c=c.navy,label='NF$\kappa$B')
+	ax3.plot(DT3,D3[2],'-.',c=c.darkorange,label='A20')
+	ax3.plot(DT3,D3[3],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
+	
+	#ax3.grid(linewidth=.25,color=c.lightslategrey)
+	ax3.set_yticks([0,1,2])
+	ax3.yaxis.tick_right()
+	ax3.yaxis.set_label_position('right')
+	ax3.set_xticks(xticks)
+	ax3.set_xlim([0,15])
+	ax3.set_ylabel('Level')	
+	ax3.set_xticklabels([])
+	ax3.set_xlabel('Time (Steps)',x=.69)
+	ax3.set_title('$\\mathbf{(c)}$',x=0.1)
+
+	'''trans = ax3.transAxes + ax1.transData.inverted()
 	((xmin,_),(xmax,_)) = trans.transform([[0,1],[1,1]])
-	ax2.set_xlim(xmin,xmax)
+	ax3.set_xlim(xmin,xmax)'''
 	
 	handles, labels = ax1.get_legend_handles_labels()
-	fig.legend(handles, labels, loc=(0.61,0.18),framealpha=1,prop={'size': 10},edgecolor=None)
+	fig.legend(handles, labels, loc=(0.7,0.6),framealpha=0,prop={'size': 10},edgecolor=None)
 	#fig.tight_layout()
 	plt.savefig('../../graphics/evpltscale{}.png'.format(kwargs.get('strg','')),dpi=500)
 	plt.close()
@@ -488,18 +516,17 @@ def compall(pt,py,pt2,py2,*string):
 	plt.savefig('../../graphics/compall{}.png'.format(strg),dpi=500)
 	plt.close()
 	
-def varplt(var1,var2,colours,lab,**kwargs):
+def varplt(var1,colours,lab,**kwargs):
 	plt.style.use('seaborn-paper')
 	fig,ax=plt.subplots(1,1)	
 	for i in range(1,len(var1)):		
-		ax.plot(var1[0],var1[i],c=colours[i-1][0],label=lab[i-1][0])
-		ax.plot(var2[0],var2[i],'--',c=colours[i-1][1],label=lab[i-1][1])
+		ax.plot(var1[0],var1[i]*1000,c=colours[i-1][0],label=lab[i-1][0])		
 	if 'title' in kwargs:
 		ax.set_title(kwargs.get('title'))
 	ax.legend()
 	ax.grid()
-	ax.set_xlabel('time frame$\\ / \\ $h')
-	ax.set_ylabel('value$\\ / \\ $ $\mu$M')
+	ax.set_xlabel('Time Frame$\\ / \\ $h')
+	ax.set_ylabel('Median / nM')
 	ax.set_xlim(0,24)
 	fig.tight_layout()	
 	if 'path' in kwargs:
