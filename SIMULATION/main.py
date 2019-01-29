@@ -19,14 +19,14 @@ def timevar(stop):
 
 ##CONDITIONS########
 AA=1                # AA=1 wt cell, AA=0 IkBa deficient cell
-AB=1                # AB=1 wt cell, AB=0  A20 deficient cell
+AB=0                # AB=1 wt cell, AB=0  A20 deficient cell
 AC=1				# AC=1 wt cell, AC=0 IKKa KO
 kv=5              	#ratio of cytoplasmic to nuclear volume kv=5
 #TR=0				#TNF signal
 nftot=0.06		   	#total nfkb
 
-#VAR=timevar(24)#np.logspace(0,np.log2(24),20,base=2))
-#res.dump('../../simres/VARthreshwt',mean=VAR[0],median=VAR[1],max=VAR[2])
+'''VAR=timevar(24)#np.logspace(0,np.log2(24),20,base=2))
+res.dump('../../simres/VARthreshKO',mean=VAR[0],median=VAR[1],max=VAR[2])'''
 
 '''sol=sim.solve(AA,AB,AC,kv,nftot,t=60*60*24,TR=1)
 for i,j in enumerate(sol[2].y):

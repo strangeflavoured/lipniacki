@@ -7,14 +7,14 @@ import colours as c
 import plots as s
 from results import load
 
-restore=load('../../simres/resultswt2019-01-03.npz')
+'''restore=load('../../simres/resultswt2019-01-06.npz')
 ##print(restore.files)
 #pt=restore['pt']
 #py=restore['py']
 #pt=restore['ptsim']
 py=restore['pysim']
 
-restore2=load('../../simres/resultsA20KO2019-01-03.npz')
+restore2=load('../../simres/resultsA20KO2019-01-06.npz')
 ##print(restore.files)
 pt2=restore2['pt']
 py2=restore2['py']
@@ -66,8 +66,8 @@ DY=restore2['Y']
 s.evplt(DY,DY2,DY3,strg='ALLcustom2',start=[0,0,0,1])
 #s.evplt3d(DY,DY2,DY3,strg='ALLcustom2',start=[0,0,0,1])'''
 
-'''restore=load('../../simres/VARthreshwt2019-01-02.npz')
-restore2=load('../../simres/VARthreshKO2019-01-02.npz')
+'''restore=load('../../simres/VARthreshwt2019-01-13.npz')
+restore2=load('../../simres/VARthreshKO2019-01-13.npz')
 
 mean=restore['mean']
 median=restore['median']
@@ -79,7 +79,6 @@ Max2=restore2['max']
 
 colours=[[c.blood,c.deeppink],[c.navy,c.dodgerblue],[c.darkorange,c.gold],[c.green,c.lime]]
 lab=[['IKK','IKK, A20 KO'],['NF$\kappa$B','NF$\kappa$B, A20'],['A20','A20, A20 KO'],['I$\kappa$B','I$\kappa$B, A20 KO'],]
-
 s.varplt(mean,colours,lab,path='../../graphics/varmean.png',title='Mean')
 s.varplt(median,colours,lab,path='../../graphics/varmedian.png',title='Median')
 #s.varplt(Max,Max2,colours,lab,path='../../graphics/varmax.png',title='Maximum/Minimum')'''

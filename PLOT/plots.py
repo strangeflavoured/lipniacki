@@ -364,11 +364,12 @@ def discrnor(py,pt,**kwargs):
 	ax22.set_yticklabels([0,1])
 	ax22.set_ylabel(ylab2)
 	
-	lstyle[-2]=':'
+	#lstyle[-2]=':'
 	px3=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(TH7,pt)]
-	colour3=[c.darkorange,c.gold,c2]
+	colour3=[c.darkorange,c.gold,c1]
 	for i,j in enumerate(px3):
-		ax4.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
+
+	ax4.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
 	ax4.set_title('A20')
 	ax4.set_xlim(xlim)	
 	ax4.set_yticks(tick)
@@ -376,11 +377,11 @@ def discrnor(py,pt,**kwargs):
 	ax4.set_yticklabels([0,np.around(MAX7*500,decimals=1),np.around(MAX7*1000,decimals=1)])
 	ax4.set_yticklabels([np.around(MAX7*TH7[0]*1000,decimals=1)],minor=True)
 	ax4.yaxis.get_ticklabels(minor=True)[0].set_verticalalignment('top')
-	ax4.yaxis.get_ticklabels()[1].set_verticalalignment('baseline')
+	ax4.yaxis.get_ticklabels()[1].set_verticalalignment('baseline')f
 	ax4.set_xlabel(xlab)
 	ax4.set_ylabel(ylab)
 	ax42=ax4.twinx()
-	ax42.yaxis.tick_right()	
+	ax42.yaxis.tick_right()
 	NUL=ax42.transData.inverted().transform(ax4.transData.transform((0,0)))[1]
 	ONE=ax42.transData.inverted().transform(ax4.transData.transform((1,1)))[1]
 	ax42.set_yticks([NUL,ONE])
@@ -451,6 +452,9 @@ def evplt(DY,DY2,DY3,**kwargs):
 		for i,j in enumerate(D2):
 			for k,l in enumerate(j):
 				D2[i][k]=j[k-1]+l
+		for i,j in enumerate(D3):
+			for k,l in enumerate(j):
+				D3[i][k]=j[k-1]+l
 		for m in range(3):
 			app=[]
 			for i in range(len(D)):
@@ -491,7 +495,7 @@ def evplt(DY,DY2,DY3,**kwargs):
 	ax1.set_xlim(0,len(DT))
 	ax1.set_ylabel('Activity')	
 	ax1.set_xticklabels([])
-	ax1.set_xlabel('Time (Steps)',x=0.91)
+	ax1.set_xlabel('Time (Steps)',x=0.85)
 	xtitle=ax1.set_title('$\\mathbf{(a)}$',x=0.05)
 
 	ax2.plot(DT2,D2[0],linestyle=lst[0],c=c.blood)
@@ -528,9 +532,25 @@ def evplt(DY,DY2,DY3,**kwargs):
 	ax32.set_yticklabels([0,1,2])
 	ax32.set_ylabel('Activity')
 
-	trans = ax2.transAxes + ax1.transData.inverted()
+	ax3.plot(DT3,D3[0],'-',c=c.blood,label='IKKa')
+	ax3.plot(DT3,D3[1],'--',c=c.navy,label='NF$\kappa$B')
+	ax3.plot(DT3,D3[2],'-.',c=c.darkorange,label='A20')
+	ax3.plot(DT3,D3[3],':',c=c.green,label='NF$\kappa$B:I$\kappa$B')
+	
+	#ax3.grid(linewidth=.25,color=c.lightslategrey)
+	ax3.set_yticks([0,1,2])
+	ax3.yaxis.tick_right()
+	ax3.yaxis.set_label_position('right')
+	ax3.set_xticks(xticks)
+	ax3.set_xlim([0,15])
+	ax3.set_ylabel('Level')	
+	ax3.set_xticklabels([])
+	ax3.set_xlabel('Time (Steps)',x=.69)
+	ax3.set_title('$\\mathbf{(c)}$',x=0.1)
+
+	'''trans = ax3.transAxes + ax1.transData.inverted()
 	((xmin,_),(xmax,_)) = trans.transform([[0,1],[1,1]])
-	ax2.set_xlim(xmin,xmax)
+	ax3.set_xlim(xmin,xmax)'''
 	
 	handles, labels = ax1.get_legend_handles_labels()
 	fig.legend(handles, labels, loc=(.73,.65),framealpha=0,prop={'size': 10},edgecolor=None)	
