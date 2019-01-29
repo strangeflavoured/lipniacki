@@ -9,10 +9,10 @@ from results import load
 
 restore=load('../../simres/resultswt2019-01-03.npz')
 ##print(restore.files)
-pt=restore['pt']
-py=restore['py']
+#pt=restore['pt']
+#py=restore['py']
 #pt=restore['ptsim']
-#py=restore['pysim']
+py=restore['pysim']
 
 restore2=load('../../simres/resultsA20KO2019-01-03.npz')
 ##print(restore.files)
@@ -29,7 +29,7 @@ py=restore['py']
 #py=restore['pysim']'''
 
 
-###ONE AT A TIME###
+'''###ONE AT A TIME###
 #s.plainall(pt,py,'REV')
 #s.compall(pt,py,pt2,py2)
 ##s.discreet(py,pt,mode='mean')
@@ -42,7 +42,7 @@ s.discrnor(py,pt,mode='custom',name='')
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
 #s.threshmean(py,pt,'wt')#
-#s.threshmedian(py,pt,'wt')#
+#s.threshmedian(py,pt,'wt')#'''
 
 '''x=[py[6]]
 y=[py[9]]
@@ -78,7 +78,7 @@ median2=restore2['median']
 Max2=restore2['max']
 
 colours=[[c.blood,c.deeppink],[c.navy,c.dodgerblue],[c.darkorange,c.gold],[c.green,c.lime]]
-lab=[['IKK, wt','IKK, A20 KO'],['NF$\kappa$B, wt','NF$\kappa$B, A20 KO'],['A20, wt','A20, A20 KO'],['I$\kappa$B, wt','I$\kappa$B, A20 KO'],]
+lab=[['IKK','IKK, A20 KO'],['NF$\kappa$B','NF$\kappa$B, A20'],['A20','A20, A20 KO'],['I$\kappa$B','I$\kappa$B, A20 KO'],]
 
 s.varplt(mean,colours,lab,path='../../graphics/varmean.png',title='Mean')
 s.varplt(median,colours,lab,path='../../graphics/varmedian.png',title='Median')
@@ -87,3 +87,5 @@ s.varplt(median,colours,lab,path='../../graphics/varmedian.png',title='Median')
 '''###############################################################
 phase3d plot nfkb, ikb:nfkb, ikk
 ###############################################################'''
+
+ps.phase3d(1000*py[6],1000*py[9],1000*py[1],1000*py[7],cm.rainbow,'o',path='../../graphics/phase3d')
