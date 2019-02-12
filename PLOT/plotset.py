@@ -119,9 +119,9 @@ def phaseplt(px,py,pt,colour,colourmap,lab,**kwargs):
 def phase3d(px,py,pz,a,colourmap,marker,**kwargs):
 	ttl=kwargs.get('title','')
 	stl=kwargs.get('style','seaborn-paper')
-	xl=kwargs.get('xlabel','NF$\kappa$Bn / nM')
-	yl=kwargs.get('ylabel','I$\kappa$Bc / nM')
-	zl=kwargs.get('zlabel','IKKa / nM')
+	xl=kwargs.get('xlabel','[NF$\kappa$B$_n$] in nM')
+	yl=kwargs.get('ylabel','[I$\kappa$B$_c$] in nM')
+	zl=kwargs.get('zlabel','[IKK$_a$] in nM')
 	label=kwargs.get('label')
 	xlim=kwargs.get('xlim')
 
@@ -142,7 +142,7 @@ def phase3d(px,py,pz,a,colourmap,marker,**kwargs):
 	
 	norm = plt.Normalize(vmin=0, vmax=Amax)
 	cb1 = mpl.colorbar.ColorbarBase(ax2, cmap=colourmap,norm=norm,orientation='horizontal')
-	cb1.set_label('A20 / nM')
+	cb1.set_label('[A20] in nM')
 
 	if xlim:
 		ax.set_xlim(xlim)
@@ -158,8 +158,11 @@ def phase3d(px,py,pz,a,colourmap,marker,**kwargs):
 	ax.yaxis.pane.set_edgecolor('black')
 	ax.zaxis.pane.set_edgecolor('black')
 	ax.set_xticks([0,100,200,300])
+	ax.set_xlim([0,300])
 	ax.set_yticks([0,10,20,30])
+	ax.set_ylim([0,35])
 	ax.set_zticks([0,20,40,60,80])
+	ax.set_zlim([0,80])
 	ax.invert_yaxis()
 	ax.grid(False)	
 	

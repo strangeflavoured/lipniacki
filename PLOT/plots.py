@@ -39,8 +39,8 @@ def plainall(pt,py,*string):
 	ax1.set_ylim(-.2,2)
 	ax1.set_title('IKK')
 	ax1.set_yticks([0,1000*py[1][t0]])
-	ax1.set_xlabel('Time / h')
-	ax1.set_ylabel('Concentration /nM')
+	ax1.set_xlabel('$t$ in h')
+	ax1.set_ylabel('$c$ in nM')
 	ax12=ax1.twinx()
 	low=1000*py[1][tend]
 	LOW=ax12.transData.inverted().transform(ax1.transData.transform((low,low)))[1]	
@@ -49,8 +49,8 @@ def plainall(pt,py,*string):
 	ax2.plot(pt-101,py[12]*1000,c=colour[1])
 	ax2.set_title('I$\kappa$B')
 	ax2.set_yticks([0,1000*py[12][t0]])
-	ax2.set_xlabel('Time / h')
-	ax2.set_ylabel('Concentration /nM')
+	ax2.set_xlabel('$t$ in h')
+	ax2.set_ylabel('$c$ in nM')
 	ax22=ax2.twinx()
 	low=1000*py[12][tend]
 	LOW=ax22.transData.inverted().transform(ax2.transData.transform((low,low)))[1]	
@@ -61,8 +61,8 @@ def plainall(pt,py,*string):
 	ax3.set_ylim(-10,100)
 	ax3.set_title('NF$\kappa$B')
 	ax3.set_yticks([0,1000*py[6][t0]])
-	ax3.set_xlabel('Time / h')
-	ax3.set_ylabel('Concentration /nM')
+	ax3.set_xlabel('$t$ in h')
+	ax3.set_ylabel('$c$ in nM')
 	ax32=ax3.twinx()
 	low=1000*py[6][tend]
 	LOW=ax32.transData.inverted().transform(ax3.transData.transform((low,low)))[1]	
@@ -72,8 +72,8 @@ def plainall(pt,py,*string):
 	ax4.plot(pt-101,py[7]*1000,c=colour[3])
 	ax4.set_title('A20')
 	ax4.set_yticks([0,1000*py[7][t0]])
-	ax4.set_xlabel('Time / h')
-	ax4.set_ylabel('Concentration /nM')
+	ax4.set_xlabel('$t$ in h')
+	ax4.set_ylabel('$c$ in nM')
 	ax42=ax4.twinx()
 	low=1000*py[7][tend]
 	LOW=ax42.transData.inverted().transform(ax4.transData.transform((low,low)))[1]	
@@ -86,8 +86,7 @@ def plainall(pt,py,*string):
 		ax.tick_params(direction='in')
 		ax.yaxis.set_zorder(3)
 		ax.set_xlim(-1,6)
-		ax.scatter(0,1, s=20, marker=7, color="red",
-           transform=ax.get_xaxis_transform(), clip_on=False, zorder=3)		
+		ax.scatter(0,1, marker='v', color="red", transform=ax.get_xaxis_transform(), clip_on=False, zorder=3)		
 
 	fig.tight_layout()
 	plt.savefig('../../graphics/plainall{}.png'.format(strg),dpi=500)
@@ -248,8 +247,8 @@ def discr(py,pt,**kwargs):
 	label=['Simulation','Discretisation','$\\vartheta$']
 	lstyle=['-','--',':']
 	tick=[0,0.5,1]
-	xlab='Time / h'
-	ylab='Concentration / nM'
+	xlab='$t$ in h'
+	ylab='$c$ in nM'
 	ylab2='Activity'	
 	MAX7=np.amax(py[7])
 	TH7=m7/MAX7
@@ -272,7 +271,7 @@ def discr(py,pt,**kwargs):
 	ax.yaxis.get_ticklabels()[1].set_verticalalignment('baseline')
 	ax.set_xlabel(xlab)
 	ax.set_ylabel(ylab)
-	ax.legend(loc=(0.7,0.2),framealpha=0,fontsize=3,edgecolor=None)
+	ax.legend(loc=(0.5,0.1),prop={'size':6},framealpha=0,fontsize=3,edgecolor=None)
 	ax2=ax.twinx()
 	ax2.yaxis.tick_right()	
 	NUL=ax2.transData.inverted().transform(ax.transData.transform((0,0)))[1]
@@ -301,8 +300,8 @@ def discrnor(py,pt,**kwargs):
 	lstyle=['-','--','-.','-.']
 	tick=[0,0.5,1]
 	mtick=[0.25,0.75]
-	xlab='Time / h'
-	ylab='Concentration / nM'
+	xlab='$t$ in h'
+	ylab='$c$ in nM'
 	ylab2='Activity'
 	c1=c.plum
 	c2=c.deeppink
@@ -336,11 +335,11 @@ def discrnor(py,pt,**kwargs):
 	ax3.set_yticklabels([np.around(MAX6*TH6[0]*1000,decimals=1)],minor=True)
 	ax3.set_xlabel(xlab)
 	ax3.set_ylabel(ylab)
-	ax32=ax1.twinx()
+	ax32=ax3.twinx()
 	ax32.yaxis.tick_right()	
 	NUL=ax32.transData.inverted().transform(ax3.transData.transform((0,0)))[1]
 	ONE=ax32.transData.inverted().transform(ax3.transData.transform((1,1)))[1]
-	ax32.set_yticks([NUL,ONE])	
+	ax32.set_yticks([NUL,ONE])
 	ax32.set_yticklabels([0,1])
 	ax32.set_ylabel(ylab2)
 
@@ -368,8 +367,7 @@ def discrnor(py,pt,**kwargs):
 	px3=[prc.norm(py[7]),prc.discr(py[7],m7),ps.hline(TH7,pt)]
 	colour3=[c.darkorange,c.gold,c1]
 	for i,j in enumerate(px3):
-
-	ax4.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
+		ax4.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
 	ax4.set_title('A20')
 	ax4.set_xlim(xlim)	
 	ax4.set_yticks(tick)
@@ -377,7 +375,7 @@ def discrnor(py,pt,**kwargs):
 	ax4.set_yticklabels([0,np.around(MAX7*500,decimals=1),np.around(MAX7*1000,decimals=1)])
 	ax4.set_yticklabels([np.around(MAX7*TH7[0]*1000,decimals=1)],minor=True)
 	ax4.yaxis.get_ticklabels(minor=True)[0].set_verticalalignment('top')
-	ax4.yaxis.get_ticklabels()[1].set_verticalalignment('baseline')f
+	ax4.yaxis.get_ticklabels()[1].set_verticalalignment('baseline')
 	ax4.set_xlabel(xlab)
 	ax4.set_ylabel(ylab)
 	ax42=ax4.twinx()
@@ -408,9 +406,9 @@ def discrnor(py,pt,**kwargs):
 	HALF=ax12.transData.inverted().transform(ax1.transData.transform((0,0.5)))[1]
 	ONE=ax12.transData.inverted().transform(ax1.transData.transform((1,1)))[1]
 	ax12.set_yticks([NUL,HALF,ONE])
-	'''turn off minor ticks:
-	for tic in ax42.yaxis.get_minor_ticks():
-		tic.tick1On = tic.tick2On = False'''
+	#turn off minor ticks:
+	#for tic in ax42.yaxis.get_minor_ticks():
+	#	tic.tick1On = tic.tick2On = False
 	ax12.set_yticklabels([0,1,2])
 	ax12.set_ylabel(ylab2)	
 
@@ -577,8 +575,8 @@ def compall(pt,py,pt2,py2,*string):
 	labels=['wt','A20 KO']
 	lstyle=['-','--']
 	xlim=(-1,6)
-	xlabel='t$\\ /\\ $h'
-	ylabel='c / nM'
+	xlabel='$t$ in h'
+	ylabel='$c$ in nM'
 	vertal='baseline'
 	titles=['NF$\kappa$B','I$\kappa$B:NF$\kappa$B','A20','IKK']
 
@@ -596,14 +594,13 @@ def compall(pt,py,pt2,py2,*string):
 		ax.tick_params(direction='in')
 		ax.set_ylabel(ylabel)
 		ax.set_xlabel(xlabel)
-		ax.scatter(0,1, s=20, marker=7, color="red",
-           transform=ax.get_xaxis_transform(), clip_on=False, zorder=3)
+		ax.scatter(0,1, marker='v', color="red", transform=ax.get_xaxis_transform(), clip_on=False, zorder=3)
 		AX+=1	
 
 	handles=[Line2D([0], [0], color='black', lw=1,linestyle='-'),
 	Line2D([0], [0], color='black', lw=1,linestyle='--')]
 
-	fig.legend(handles, labels, 'center',fontsize=7,framealpha=0,prop={'size': 8},edgecolor=None)
+	#fig.legend(handles, labels, 'center',fontsize=7,framealpha=0,prop={'size': 8},edgecolor=None)
 
 	fig.align_ylabels()
 	fig.tight_layout()
@@ -615,21 +612,21 @@ def varplt(var1,colours,lab,**kwargs):
 	fig,ax=plt.subplots(1,1)
 	if kwargs.get('title',False)=='Mean':
 		fig.set_size_inches(3.2,2.2)
-		size=3.5
+		size=6
 		lw=0.3
-		loc=(0.075,0.75)
+		loc=(0.075,0.85)
 	else:
-		size=7
+		size=14
 		lw=.5
 		loc=0
 	for i in [1,4,2,3]:		
 		ax.plot(var1[0],var1[i]*1000,c=colours[i-1][0],label=lab[i-1][0])
 	if 'title' in kwargs:
 		ax.set_title(kwargs.get('title'))
-	ax.legend(loc=loc,prop={'size':size},framealpha=0)
+	ax.legend(loc=loc,prop={'size':size},framealpha=0,ncol=4)
 	ax.grid(linewidth=lw)
-	ax.set_xlabel('Time Frame / h')
-	ax.set_ylabel('Concentration / nM')
+	ax.set_xlabel('Time Frame in h')
+	ax.set_ylabel('$c$ in nM')
 	ax.set_xlim(0,24)
 	ax.tick_params(direction='in')
 	fig.tight_layout()	
