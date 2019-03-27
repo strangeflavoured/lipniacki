@@ -7,12 +7,12 @@ import colours as c
 import plots as s
 from results import load
 
-'''restore=load('../../simres/resultswt2019-01-17.npz')
+restore=load('../../simres/resultswt2019-01-17.npz')
 ##print(restore.files)
 pt=restore['pt']
 py=restore['py']
-pt=restore['ptsim']
-py=restore['pysim']
+#pt=restore['ptsim']
+#py=restore['pysim']
 
 
 restore2=load('../../simres/resultsKO2019-01-17.npz')
@@ -22,12 +22,12 @@ py2=restore2['py']
 #pt=restore['ptsim']
 #py=restore['pysim']'''
 
-restore=load('../../simres/resultsREV2019-01-18.npz')
+'''restore=load('../../simres/resultsREV2019-01-18.npz')
 ##print(restore.files)
 pt=restore['pt']
 py=restore['py']
 #pt=restore['ptsim']
-#py=restore['pysim']
+#py=restore['pysim']'''
 
 p1=(pt,py[1])
 p2=(pt,py[12])
@@ -41,14 +41,14 @@ names=('IKK','I$\kappa$B','NF$\kappa$B','A20')
 
 ###ONE AT A TIME###
 #s.plainall(pt,py,'REV')
-s.plainTalk(p1,p2,p3,p4,names,'REV')
+#s.plainTalk(p1,p2,p3,p4,names,'REV')
 #s.compall(pt,py,pt2,py2)
 ##s.discreet(py,pt,mode='mean')
 ##s.discrall(py,pt,mode='mean')
 ##s.normplt(py,pt)
 ##s.thresh(py,pt,'wt')
 #s.discrnor(py,pt,mode='custom',name='')
-#s.discrnorTalk(py,pt,mode='custom',name='')
+s.discrnorTalk(py,pt,mode='custom',name='')
 #s.discr(py,pt,mode='custom2',strg='A20')
 #s.discrTalk(py,pt,mode='custom2',strg='A20')
 

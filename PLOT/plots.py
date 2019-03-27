@@ -752,6 +752,7 @@ def discrnorTalk(py,pt,**kwargs):
 	t=[pt,pt,pt,pt]
 	xlim=(-1,6)
 	lstyle=['--','-',(0,(1,1))]
+	width=[1,2,2]
 	tick=[0,0.5,1]
 	mtick=[0.25,0.75]
 	xlab='Time'
@@ -775,7 +776,7 @@ def discrnorTalk(py,pt,**kwargs):
 	px1=[ps.hline(TH6,pt),prc.discr(py[6],m6),prc.norm(py[6])]
 	colour1=[c1,c.dodgerblue,'navy']	
 	for i,j in enumerate(px1):
-		ax3.plot(t[i]-101,j,c=colour1[i],linestyle=lstyle[i])
+		ax3.plot(t[i]-101,j,c=colour1[i],linestyle=lstyle[i],linewidth=width[i])
 	ax3.set_title('NF$\kappa$B')
 	ax3.set_xlim(xlim)
 	ax3.set_yticks([])
@@ -786,7 +787,7 @@ def discrnorTalk(py,pt,**kwargs):
 	px2=[ps.hline(TH12,pt),prc.discr(py[12],m12),prc.norm(py[12])]
 	colour2=[c1,c.lime,c.green]
 	for i,j in enumerate(px2):
-		ax2.plot(t[i]-101,j,c=colour2[i],linestyle=lstyle[i])
+		ax2.plot(t[i]-101,j,c=colour2[i],linestyle=lstyle[i],linewidth=width[i])
 	ax2.set_title('I$\kappa$B')
 	ax2.set_xlim(xlim)	
 	ax2.set_yticks([])
@@ -800,7 +801,7 @@ def discrnorTalk(py,pt,**kwargs):
 		colour3[0]=c2
 		lstyle[0]='-.'
 	for i,j in enumerate(px3):
-		ax4.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
+		ax4.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i],linewidth=width[i])
 	ax4.set_title('A20')
 	ax4.set_xlim(xlim)	
 	ax4.set_yticks([])
@@ -812,10 +813,11 @@ def discrnorTalk(py,pt,**kwargs):
 		lstyle.insert(1,'-.')
 	else:
 		lstyle.insert(0,'-.')
+	width.insert(0,1)
 	px4=[ps.hline(TH1_1,pt),ps.hline(TH1_2,pt),prc.discr(py[1],m1,n1),prc.norm(py[1])]	
-	colour4=[c2,c1,'r','k']
+	colour4=[c2,c1,'r',c.blood]
 	for i,j in enumerate(px4):
-		ax1.plot(t[i]-101,j,c=colour4[i],linestyle=lstyle[i])
+		ax1.plot(t[i]-101,j,c=colour4[i],linestyle=lstyle[i],linewidth=width[i])
 	ax1.set_title('IKK')
 	ax1.set_xlim(xlim)	
 	ax1.set_yticks([])
@@ -843,7 +845,7 @@ def discrTalk(py,pt,**kwargs):
 	fig, ax=plt.subplots(1,1)
 	
 	px3=[ps.hline(TH7,pt),prc.discr(py[7],m7),prc.norm(py[7])]
-	colour3=[c.deeppink,c.gold,c.darkorange]
+	colour3=[c.deeppink,c.gold,c.orange]
 	for i,j in enumerate(px3):
 		ax.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
 	ax.set_title('A20')
