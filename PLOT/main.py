@@ -11,8 +11,9 @@ from results import load
 ##print(restore.files)
 pt=restore['pt']
 py=restore['py']
-#pt=restore['ptsim']
-#py=restore['pysim']
+pt=restore['ptsim']
+py=restore['pysim']
+
 
 restore2=load('../../simres/resultsKO2019-01-17.npz')
 ##print(restore.files)
@@ -28,16 +29,28 @@ py=restore['py']
 #pt=restore['ptsim']
 #py=restore['pysim']
 
+p1=(pt,py[1])
+p2=(pt,py[12])
+p3=(pt,py[6])
+p4=(pt,py[7])
+'''p12=(pt2,py2[1])
+p22=(pt2,py2[12])
+p32=(pt2,py2[6])
+p42=(pt2,py2[7])'''
+names=('IKK','I$\kappa$B','NF$\kappa$B','A20')
 
 ###ONE AT A TIME###
-s.plainall(pt,py,'REV')
+#s.plainall(pt,py,'REV')
+s.plainTalk(p1,p2,p3,p4,names,'REV')
 #s.compall(pt,py,pt2,py2)
 ##s.discreet(py,pt,mode='mean')
 ##s.discrall(py,pt,mode='mean')
 ##s.normplt(py,pt)
 ##s.thresh(py,pt,'wt')
 #s.discrnor(py,pt,mode='custom',name='')
+#s.discrnorTalk(py,pt,mode='custom',name='')
 #s.discr(py,pt,mode='custom2',strg='A20')
+#s.discrTalk(py,pt,mode='custom2',strg='A20')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#
@@ -63,7 +76,8 @@ restore2=load('../../anres/evresultswtcustom2019-01-17.npz')
 DY=restore2['Y']
 
 #print([1,int(restore['t0'][6]),int(restore['t0'][12]),int(restore['t0'][1]),int(restore['t0'][7])])
-s.evplt(DY,DY2,DY3,strg='ALLcustom2',start=[0,0,0,1])
+#s.evplt(DY,DY2,DY3,strg='ALLcustom2',start=[0,0,0,1])
+s.evplTalk(DY2,start=[0,0,0,1],strg='2')
 #s.evplt3d(DY,DY2,DY3,strg='ALLcustom2',start=[0,0,0,1])'''
 
 '''restore=load('../../simres/VARthreshwt2019-01-02.npz')
@@ -87,4 +101,5 @@ s.varplt(median,colours,lab,path='../../graphics/varmedian.png',title='Median')
 phase3d plot nfkb, ikb:nfkb, ikk
 ###############################################################'''
 
+#ps.phaseTalk(1000*py[6],1000*py[9],1000*py[1],1000*py[7],cm.rainbow,'o',path='../../graphics/phaseTalk')
 #ps.phase3d(1000*py[6],1000*py[9],1000*py[1],1000*py[7],cm.rainbow,'o',path='../../graphics/phase3d')

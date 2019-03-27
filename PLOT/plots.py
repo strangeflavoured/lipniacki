@@ -5,6 +5,7 @@ from matplotlib.lines import Line2D
 from matplotlib.ticker import FormatStrFormatter, NullFormatter
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib as mpl
+import seaborn
 
 import process as prc
 import plotset as ps
@@ -406,9 +407,6 @@ def discrnor(py,pt,**kwargs):
 	HALF=ax12.transData.inverted().transform(ax1.transData.transform((0,0.5)))[1]
 	ONE=ax12.transData.inverted().transform(ax1.transData.transform((1,1)))[1]
 	ax12.set_yticks([NUL,HALF,ONE])
-	#turn off minor ticks:
-	#for tic in ax42.yaxis.get_minor_ticks():
-	#	tic.tick1On = tic.tick2On = False
 	ax12.set_yticklabels([0,1,2])
 	ax12.set_ylabel(ylab2)	
 
@@ -421,7 +419,7 @@ def discrnor(py,pt,**kwargs):
 		ax.tick_params(direction='in')
 		ax.yaxis.set_zorder(3)
 
-	fig.legend(handles, labels, loc=(0.45,0.45),fontsize=6,framealpha=0,prop={'size': 7},edgecolor=None)
+	fig.legend(handles, labels, loc=(.4,0.47),fontsize=6,framealpha=1,prop={'size': 7},edgecolor='k',ncol=2)
 
 	fig.tight_layout()	
 	plt.savefig('../../graphics/discrnor{}{}.png'.format(kwargs.get('strg',''),mode),dpi=500)
@@ -615,16 +613,19 @@ def varplt(var1,colours,lab,**kwargs):
 		size=6
 		lw=0.3
 		loc=(0.075,0.85)
+		grid=False
 	else:
 		size=14
 		lw=.5
 		loc=0
+		grid=True
 	for i in [1,4,2,3]:		
 		ax.plot(var1[0],var1[i]*1000,c=colours[i-1][0],label=lab[i-1][0])
 	if 'title' in kwargs:
 		ax.set_title(kwargs.get('title'))
 	ax.legend(loc=loc,prop={'size':size},framealpha=0,ncol=4)
-	ax.grid(linewidth=lw)
+	if grid:
+		ax.grid(linewidth=lw)
 	ax.set_xlabel('Time Frame in h')
 	ax.set_ylabel('$c$ in nM')
 	ax.set_xlim(0,24)
@@ -704,3 +705,204 @@ def evplt3d(DY,DY2,DY3,**kwargs):
 	#fig.patch.set_alpha(0.)
 
 	plt.show()
+
+def plainTalk(p1,p2,p3,p4,names,*string):
+	if string:
+		strg=string[0]
+	else:
+		strg=''
+	###PLOTTING#########
+	colour=[c.blood,c.green,c.navy,c.darkorange]
+				
+	plt.style.use('seaborn-paper')
+	seaborn.set_context("talk")
+	fig, ((ax1,ax2),(ax3,ax4))=plt.subplots(2,2)
+
+	ax1.plot(p1[0]-101,p1[1]*1000,c=colour[0])
+	ax1.set_title(names[0])
+	#ax1.set_ylim([-0.1,1.8])
+
+	ax2.plot(p2[0]-101,p2[1]*1000,c=colour[1])
+	ax2.set_title(names[1])
+
+	ax3.plot(p3[0]-101,p3[1]*1000,c=colour[2])	
+	ax3.set_title(names[2])
+	#ax3.set_ylim([-10,100])
+
+	ax4.plot(p4[0]-101,p4[1]*1000,c=colour[3])
+	ax4.set_title(names[3])
+	
+	
+	for ax in fig.axes:
+		ax.yaxis.set_zorder(3)
+		ax.set_xlim(-1,4)
+		ax.scatter(0,1, marker='v', color="red", transform=ax.get_xaxis_transform(), clip_on=False, zorder=3)
+		ax.set_xticks([])
+		ax.set_yticks([])
+		ax.set_xlabel('Time')
+		ax.set_ylabel('Level')		
+
+	fig.tight_layout()
+	plt.savefig('../../graphics/plainTalk{}.png'.format(strg),dpi=500)
+	plt.close()
+
+def discrnorTalk(py,pt,**kwargs):
+	mode=kwargs.get('mode','limit')	
+	(m6,m7,m12,m1,n1)=prc.evmode(mode)
+	t=[pt,pt,pt,pt]
+	xlim=(-1,6)
+	lstyle=['--','-',(0,(1,1))]
+	tick=[0,0.5,1]
+	mtick=[0.25,0.75]
+	xlab='Time'
+	ylab='Activity'
+	c1=c.plum
+	c2=c.deeppink
+	MAX6=np.amax(py[6])
+	TH6=m6/MAX6
+	MAX12=np.amax(py[12])
+	TH12=m12/MAX12
+	MAX7=np.amax(py[7])
+	TH7=m7/MAX7
+	MAX1=np.amax(py[1])
+	TH1_1=m1/MAX1
+	TH1_2=n1/MAX1
+	
+	plt.style.use('seaborn-paper')
+	seaborn.set_context("talk")
+	fig, ((ax1,ax2),(ax3,ax4))=plt.subplots(2,2)
+
+	px1=[ps.hline(TH6,pt),prc.discr(py[6],m6),prc.norm(py[6])]
+	colour1=[c1,c.dodgerblue,'navy']	
+	for i,j in enumerate(px1):
+		ax3.plot(t[i]-101,j,c=colour1[i],linestyle=lstyle[i])
+	ax3.set_title('NF$\kappa$B')
+	ax3.set_xlim(xlim)
+	ax3.set_yticks([])
+	ax3.set_xticks([])
+	ax3.set_xlabel(xlab)
+	ax3.set_ylabel(ylab)	
+
+	px2=[ps.hline(TH12,pt),prc.discr(py[12],m12),prc.norm(py[12])]
+	colour2=[c1,c.lime,c.green]
+	for i,j in enumerate(px2):
+		ax2.plot(t[i]-101,j,c=colour2[i],linestyle=lstyle[i])
+	ax2.set_title('I$\kappa$B')
+	ax2.set_xlim(xlim)	
+	ax2.set_yticks([])
+	ax2.set_xticks([])
+	ax2.set_xlabel(xlab)
+	ax2.set_ylabel(ylab)
+	
+	px3=[ps.hline(TH7,pt),prc.discr(py[7],m7),prc.norm(py[7])]
+	colour3=[c1,c.gold,c.darkorange]
+	if mode=='custom2':
+		colour3[0]=c2
+		lstyle[0]='-.'
+	for i,j in enumerate(px3):
+		ax4.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
+	ax4.set_title('A20')
+	ax4.set_xlim(xlim)	
+	ax4.set_yticks([])
+	ax4.set_xticks([])
+	ax4.set_xlabel(xlab)
+	ax4.set_ylabel(ylab)
+	
+	if mode=='custom2':
+		lstyle.insert(1,'-.')
+	else:
+		lstyle.insert(0,'-.')
+	px4=[ps.hline(TH1_1,pt),ps.hline(TH1_2,pt),prc.discr(py[1],m1,n1),prc.norm(py[1])]	
+	colour4=[c2,c1,'r','k']
+	for i,j in enumerate(px4):
+		ax1.plot(t[i]-101,j,c=colour4[i],linestyle=lstyle[i])
+	ax1.set_title('IKK')
+	ax1.set_xlim(xlim)	
+	ax1.set_yticks([])
+	ax1.set_xticks([])
+	ax1.set_xlabel(xlab)
+	ax1.set_ylabel(ylab)
+
+	fig.tight_layout()	
+	plt.savefig('../../graphics/discrnorTalk{}{}.png'.format(kwargs.get('strg',''),mode),dpi=500)
+	plt.close()
+
+def discrTalk(py,pt,**kwargs):
+	mode=kwargs.get('mode','limit')
+	(m6,m7,m12,m1,n1)=prc.evmode(mode)
+	t=[pt,pt,pt,pt]
+	xlim=(-1,6)
+	lstyle=['-.','-',(0,(1,1))]
+	xlab='Time'
+	ylab='Activity'	
+	MAX7=np.amax(py[7])
+	TH7=m7/MAX7
+	
+	plt.style.use('seaborn-paper')
+	seaborn.set_context("talk")
+	fig, ax=plt.subplots(1,1)
+	
+	px3=[ps.hline(TH7,pt),prc.discr(py[7],m7),prc.norm(py[7])]
+	colour3=[c.deeppink,c.gold,c.darkorange]
+	for i,j in enumerate(px3):
+		ax.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
+	ax.set_title('A20')
+	ax.set_xlim(xlim)	
+	ax.set_yticks([])
+	ax.set_xticks([])	
+	ax.set_xlabel(xlab)
+	ax.set_ylabel(ylab)
+	
+	ax.yaxis.set_zorder(3)
+	
+	fig.tight_layout()
+	
+	plt.savefig('../../graphics/discrTalk{}{}.png'.format(kwargs.get('strg',''),mode),dpi=500)
+	plt.close()
+
+def evplTalk(DY,**kwargs):
+
+	plt.style.use('seaborn-paper')
+	seaborn.set_context('talk')
+
+	D=prc.insee(prc.ceem(np.array([DY[1],DY[6],DY[7],DY[12]])))
+	if 'start' in kwargs:
+		start=kwargs.get('start')
+		D=np.append([[start[0]],[start[1]],[start[2]],[start[3]]],D,axis=1)
+
+		for i,j in enumerate(D):
+			for k,l in enumerate(j):
+				D[i][k]=j[k-1]+l
+		for m in range(3):
+			app=[]
+			for i in range(len(D)):
+				app.append([D[i][-1]])
+			D=np.append(D,app,axis=1)			
+
+	DT=np.arange(D.shape[1])
+
+	xticks=[]
+	for i in range(0,D.shape[1]-2,2):
+		xticks.append(i+0.5)
+
+	fig,ax=plt.subplots(1,1)
+	lst=['-',(0,(5,1)),(0, (3, 1, 1, 1)),(0,(1,1))]
+
+	ax.plot(DT,D[0],linestyle=lst[0],c=c.blood,label='IKK')
+	ax.plot(DT,D[3],linestyle=lst[1],c=c.green,label='I$\kappa$B')
+	ax.plot(DT,D[1],linestyle=lst[2],c=c.navy,label='NF$\kappa$B')
+	ax.plot(DT,D[2],linestyle=lst[3],c=c.darkorange,label='A20')	
+	
+	#ax1.grid(linewidth=.25,color=c.lightslategrey)
+	ax.set_yticks([0,1,2])
+	ax.set_xticks([])
+	ax.set_xlim(0,len(DT))
+	ax.set_ylabel('Activity')	
+	ax.set_xticklabels([])
+	ax.set_xlabel('Time (Steps)')
+	
+	handles, labels = ax.get_legend_handles_labels()
+	fig.legend(handles, labels, loc=(.73,.65),framealpha=0,prop={'size': 10},edgecolor=None)	
+	fig.tight_layout()
+	plt.savefig('../../graphics/evplTalk{}.png'.format(kwargs.get('strg','')),dpi=500)
+	plt.close()

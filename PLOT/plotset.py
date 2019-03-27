@@ -7,6 +7,7 @@ from matplotlib.colors import LogNorm
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.cm as cm
 import numpy as np
+import seaborn
 
 def hline(val,pt):
 	hx=[]
@@ -175,6 +176,68 @@ def phase3d(px,py,pz,a,colourmap,marker,**kwargs):
 	if label:
 		ax.legend()
 
+	fig.tight_layout()
+	if 'path' in kwargs:
+		fig.savefig(kwargs['path'],dpi=kwargs.get('DPI',500))
+	else:
+		plt.show()
+	plt.close()
+
+def phaseTalk(px,py,pz,a,colourmap,marker,**kwargs):
+	ttl=kwargs.get('title','')
+	stl=kwargs.get('style','seaborn-paper')
+	xl=kwargs.get('xlabel','NF$\kappa$B$_n$')
+	yl=kwargs.get('ylabel','I$\kappa$B$_c$')
+	zl=kwargs.get('zlabel','IKK$_a$')
+	label=kwargs.get('label')
+	xlim=kwargs.get('xlim')
+
+	plt.style.use(stl)
+	seaborn.set_context('talk')
+
+	fig= plt.figure(frameon=False)
+	ax = plt.subplot2grid((11,9),(0,0),rowspan=9,colspan=10,projection='3d')
+	ax2=plt.subplot2grid((11,9),(10,1),colspan=7,rowspan=1)	
+
+	Amax=np.amax(a)
+	Amin=np.amin(a)
+	Da=Amax-Amin	
+	cmap0,cmap1=colourmap(np.linspace(0,1,2))
+	Dcmap=(cmap1[0]-cmap0[0],cmap1[1]-cmap0[1],cmap1[2]-cmap0[2],cmap1[3]-cmap0[3])		
+	
+	NormA=plt.Normalize(vmin=0,vmax=Amax)
+	p=ax.scatter(px,py,pz,c=colourmap(NormA(a)))
+	
+	norm = plt.Normalize(vmin=0, vmax=Amax)
+	cb1 = mpl.colorbar.ColorbarBase(ax2, cmap=colourmap,norm=norm,orientation='horizontal',ticks=[])
+	cb1.set_label('A20')
+
+	if xlim:
+		ax.set_xlim(xlim)
+
+	ax.set_title(ttl)
+	
+	#ax.scatter(px[0],py[0],pz[0],marker=6,c='k',zorder=4)
+	#ax.zaxis._axinfo['juggled'] = (1,2,0)
+	ax.xaxis.pane.fill = False
+	ax.yaxis.pane.fill = False
+	ax.zaxis.pane.fill = False
+	ax.xaxis.pane.set_edgecolor('black')
+	ax.yaxis.pane.set_edgecolor('black')
+	ax.zaxis.pane.set_edgecolor('black')
+	ax.set_xticks([])
+	ax.set_xlim([0,300])
+	ax.set_yticks([])
+	ax.set_ylim([0,35])
+	ax.set_zticks([])
+	ax.set_zlim([0,80])
+	ax.invert_yaxis()
+	ax.grid(False)	
+	
+	ax.set_xlabel(xl)
+	ax.set_ylabel(yl)
+	ax.set_zlabel(zl)
+	
 	fig.tight_layout()
 	if 'path' in kwargs:
 		fig.savefig(kwargs['path'],dpi=kwargs.get('DPI',500))
