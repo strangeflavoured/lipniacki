@@ -48,9 +48,9 @@ names=('IKK','I$\kappa$B','NF$\kappa$B','A20')
 ##s.normplt(py,pt)
 ##s.thresh(py,pt,'wt')
 #s.discrnor(py,pt,mode='custom',name='')
-s.discrnorTalk(py,pt,mode='custom',name='')
+#s.discrnorTalk(py,pt,mode='custom',name='')
 #s.discr(py,pt,mode='custom2',strg='A20')
-#s.discrTalk(py,pt,mode='custom2',strg='A20')
+s.discrTalk(py,pt,mode='custom',strg='A20')
 
 #s.discreetmean(py,pt)#
 #s.discreetmedian(py,pt)#

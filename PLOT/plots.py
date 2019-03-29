@@ -834,7 +834,7 @@ def discrTalk(py,pt,**kwargs):
 	(m6,m7,m12,m1,n1)=prc.evmode(mode)
 	t=[pt,pt,pt,pt]
 	xlim=(-1,6)
-	lstyle=['-.','-',(0,(1,1))]
+	lstyle=['--','-',(0,(1,1))]
 	xlab='Time'
 	ylab='Activity'	
 	MAX7=np.amax(py[7])
@@ -845,7 +845,7 @@ def discrTalk(py,pt,**kwargs):
 	fig, ax=plt.subplots(1,1)
 	
 	px3=[ps.hline(TH7,pt),prc.discr(py[7],m7),prc.norm(py[7])]
-	colour3=[c.deeppink,c.gold,c.orange]
+	colour3=[c.plum,c.gold,c.orange]
 	for i,j in enumerate(px3):
 		ax.plot(t[i]-101,j,c=colour3[i],linestyle=lstyle[i])
 	ax.set_title('A20')
